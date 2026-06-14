@@ -6,5 +6,5 @@ __pycache__/
 Thumbs.db
 
 *.log
-
+*.tmp/
 exports/repo-context/
