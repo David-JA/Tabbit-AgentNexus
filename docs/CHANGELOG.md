@@ -28,3 +28,5 @@
 - 新增 4 角色协作 workflow：明确用户、网页 GPT、Tabbit agent、仓库代码 agent 的职责边界、默认任务路由和交接规则。
 - 同步项目基本定位：明确该仓库是在 AI 浏览器新架构下，为用户低成本调用网页端高性能 AI 而开发 bridge 中枢；当前主要网页端适配目标是 GPT，并要求实现同时考虑网页端 GPT 与 Tabbit agent 的需求和易用性。
 - 修正 `bridge_repo_context` 的 `overview` 打包逻辑：默认纳入 `config/`、`scripts/`、`tests/`，确保网页 AI 评审包同时覆盖脚本、配置、测试和文档。
+- 根据验收反馈完成 active 文档术语 cleanup，清掉 AgentNexus 定位迁移后的残留旧称。
+- 将 `2026-06-15_agent-nexus-positioning-and-rename.md` 转入 `discuss/archive/`，作为定位迁移内容验收与正式收口记录保留。

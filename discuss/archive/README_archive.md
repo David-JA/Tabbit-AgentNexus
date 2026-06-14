@@ -7,6 +7,7 @@
 - `tabbit-gpt-bridge-architecture-discussion.md`
 - `tabbit-gpt-bridge-final-architecture-v4.md`
 - `tabbit-skill-script-relationship-and-publishing-feasibility.md`
+- `2026-06-15_agent-nexus-positioning-and-rename.md`
 
 当前活跃入口：
 

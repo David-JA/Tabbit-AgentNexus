@@ -114,6 +114,8 @@
 
 - 这次迁移以“真值入口改向 + active workflow 改名 + 历史兼容说明”为主，没有重写测试核心或 sandbox 行为实现。
 - 若后续要推进 N2/N3，应直接围绕 `bounded_agent_dialogue.md` 和 `nexus_runtime_architecture.md` 继续收敛，而不是回到 bridge-only 术语。
+- 内容验收结论：`AgentNexus 定位迁移内容验收通过；正式收口前需处理一次工作区未提交状态。`
+- 上述未提交状态已在后续 cleanup 中处理，定位迁移现已进入可归档状态。
 
 ## Durable Sync
 
