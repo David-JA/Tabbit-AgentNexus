@@ -1,6 +1,6 @@
 # M1 Repo Review Bridge Implement Spec
 
-> Status: ready for implementation planning
+> Status: M1 scaffold in progress
 > Created: 2026-06-14
 > Spec type: implementation
 > Profile: bridge-default
@@ -273,9 +273,9 @@ Then: context pack and audit log are preserved, the failure is recorded, and no 
 
 - [ ] `T1`: Confirm actual Tabbit tool names, artifact path behavior, and whether `evaluate_script` is available on ChatGPT content pages.
 - [ ] `T2`: Create the minimal bridge skill scaffold for M1.
-- [ ] `T3`: Implement sandbox scripts: `discover_repo.py`, `git_probe.py`, `policy.py`, `redact.py`, `context_packager.py`, `audit_log.py`.
+- [x] `T3`: Implement sandbox scripts: `discover_repo.py`, `git_probe.py`, `policy.py`, `redact.py`, `context_packager.py`, `audit_log.py`.
 - [ ] `T4`: Implement or document the minimal browser interaction path for ChatGPT review submission and reply capture.
-- [ ] `T5`: Add focused tests for policy, redaction, context packaging, git graceful degradation, and audit events.
+- [x] `T5`: Add focused tests for policy, redaction, context packaging, git graceful degradation, and audit events.
 - [ ] `T6`: Run an end-to-end M1 dry run against a small mounted repo and save artifacts.
 - [ ] `T7`: Record implementation report, validation evidence, known limits, and any durable sync needed.
 
@@ -304,10 +304,12 @@ Then: context pack and audit log are preserved, the failure is recorded, and no 
 - Separated M1 requirements from M2+ protocol, patch, write, and command capabilities.
 - Added an explicit M1 runtime contract covering inputs, outputs, artifact paths, audit minimum schema, invariants, and failure classes.
 - Added the send-to-AI confirmation gate, explicit context caps, and the browser adapter minimal contract for implementation handoff.
+- Added the first sandbox-side testable core under `config/` and `scripts/`, including policy loading, repo discovery, git probing, secret redaction, context packaging, and audit writing.
+- Added fixtures and unit tests for policy, redaction, context packaging, git graceful degradation, audit logging, and repo discovery.
 
 ### Not completed
 
-- M1 skill/runtime implementation has not started in this spec creation step.
+- Browser adapter and end-to-end page submission are still not implemented.
 - Real Tabbit tool names, artifact path behavior, and ChatGPT page harness behavior still need live validation.
 
 ### Notes
@@ -320,4 +322,4 @@ Then: context pack and audit log are preserved, the failure is recorded, and no 
 
 - 是否需要更新 `AGENTS.md`：否。本次没有改变 repo-wide agent rules。
 - 是否需要更新 `docs/PROJECT_MEMORY.md`：否。本次没有新增 durable architecture decision。
-- 是否需要更新 `docs/CHANGELOG.md`：否。仅新增 implement spec，尚未实现 M1 runtime。
+- 是否需要更新 `docs/CHANGELOG.md`：是。已补充本轮契约收口与 sandbox-side 可测试核心落地记录。

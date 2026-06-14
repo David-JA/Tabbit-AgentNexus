@@ -1,0 +1,43 @@
+{
+  "profile": "review_only",
+  "mode": "review_only",
+  "write_enabled": false,
+  "commands_enabled": false,
+  "max_total_context_bytes": 2000000,
+  "max_file_bytes": 200000,
+  "max_file_count": 64,
+  "oversized_file_behavior": "skip_with_summary",
+  "binary_behavior": "skip",
+  "allow_globs": [
+    "readme.md",
+    "README.md",
+    "AGENTS.md",
+    "package.json",
+    "pyproject.toml",
+    "docs/**",
+    "discuss/**",
+    ".agent/**",
+    "scripts/**"
+  ],
+  "deny_globs": [
+    ".git/**",
+    "**/.git/**",
+    ".env",
+    ".env.*",
+    "**/.env",
+    "**/.env.*",
+    "**/*.pem",
+    "**/*.key",
+    "**/*.p12",
+    "**/*.pfx",
+    "**/id_rsa",
+    "**/id_dsa",
+    "**/id_ed25519",
+    "**/node_modules/**",
+    "**/vendor/**",
+    "**/__pycache__/**",
+    "reference/**",
+    "exports/**",
+    "discuss/archive/**"
+  ]
+}

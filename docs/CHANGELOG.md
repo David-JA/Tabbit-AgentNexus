@@ -12,3 +12,9 @@
 - 新增 `docs/architecture/tabbit_browser_agent_behavior_boundary.md`，沉淀 Tabbit 浏览器 agent 的能力矩阵、操作纪律、路径语义与已知限制。
 - 补充 Git 提交相关的 accepted 运维经验：明确 `safe.directory` 归因、提交前 Git 身份检查，并新增一份 `docs/reports/` 报告沉淀完整诊断过程。
 - 新增 `bridge-repo-context-packager` skill 与 `package_bridge_repo_context.py`，用于把当前 bridge 仓库打成面向外部 AI 的理解包 zip。
+
+## 2026-06-15
+
+- 补齐 `M1 Repo Review Bridge` 前置实现契约：`M1 Runtime Contract`、`Browser Adapter Minimal Contract`、`send-to-AI confirmation gate`、context caps 与核心验证矩阵。
+- 落地首批可测试的 sandbox-side 核心：`config/default_policy.review_only.json`、`discover_repo.py`、`git_probe.py`、`policy.py`、`redact.py`、`context_packager.py`、`audit_log.py`。
+- 新增对应 fixtures 与单元测试骨架，用于验证路径策略、secret redaction、context packaging、git graceful degradation 与 audit 落盘。

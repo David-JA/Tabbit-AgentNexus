@@ -9,7 +9,7 @@
 |---|---|---|---|---|---|
 | 2026-06-14 | Completed | workflow | Bridge repo conventions sync | [2026-06-14_bridge-repo-conventions-sync.md](2026-06-14_bridge-repo-conventions-sync.md) | conventions synced and first commit prepared |
 | 2026-06-14 | Comprehensive reference | architecture | Tabbit GPT Bridge comprehensive architecture | [2026-06-14_tabbit-gpt-bridge-comprehensive-architecture.md](2026-06-14_tabbit-gpt-bridge-comprehensive-architecture.md) | merged reference from 3 docs; not formal source of truth |
-| 2026-06-14 | Ready for implementation planning | implementation | M1 Repo Review Bridge implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | M1-only scope, BDD, validation, and explicit M2+ exclusions |
+| 2026-06-14 | M1 scaffold in progress | implementation | M1 Repo Review Bridge implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | runtime contract settled; sandbox-side testable core in progress |
 | 2026-06-15 | Completed | workflow | 新增 bridge repo context packager skill | [2026-06-15_bridge-repo-context-packager-skill.md](2026-06-15_bridge-repo-context-packager-skill.md) | add a bridge-specific repo context packaging skill and script |
 <!-- DISCUSS_SPEC_INDEX:END -->
 
