@@ -1,10 +1,10 @@
 ---
-name: bridge-multi-role-collaboration
-description: 为当前 Tabbit bridge 仓库中的多角色协作任务做职责划分、任务路由和交接收口。适用于用户、网页 GPT、Tabbit agent、仓库代码 agent 同时参与的需求收敛、spec 评审、实现推进和验收分工场景。
-compatibility: 需要能读取当前仓库中的 readme.md、docs/architecture/bridge_runtime_architecture.md、docs/PROJECT_MEMORY.md、docs/workflows/README_workflows.md、docs/workflows/multi_role_collaboration.md 和 discuss/ 相关 spec。
+name: nexus-multi-role-collaboration
+description: 为当前 Tabbit AgentNexus 仓库中的多角色协作任务做职责划分、任务路由和交接收口。适用于用户、网页 GPT、Tabbit agent、仓库代码 agent 同时参与的需求收敛、spec 评审、实现推进和验收分工场景。
+compatibility: 需要能读取当前仓库中的 readme.md、docs/architecture/nexus_runtime_architecture.md、docs/PROJECT_MEMORY.md、docs/workflows/README_workflows.md、docs/workflows/multi_role_collaboration.md 和 discuss/ 相关 spec。
 ---
 
-# Bridge Multi-Role Collaboration
+# AgentNexus Multi-Role Collaboration
 
 ## 目标
 
@@ -17,7 +17,7 @@ compatibility: 需要能读取当前仓库中的 readme.md、docs/architecture/b
 在采取动作前，先读取：
 
 1. `readme.md`
-2. `docs/architecture/bridge_runtime_architecture.md`
+2. `docs/architecture/nexus_runtime_architecture.md`
 3. `docs/PROJECT_MEMORY.md`
 4. `docs/workflows/README_workflows.md`
 5. `docs/workflows/multi_role_collaboration.md`

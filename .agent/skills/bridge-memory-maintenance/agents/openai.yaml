@@ -1,7 +1,0 @@
-interface:
-  display_name: "Bridge 记忆维护"
-  short_description: "把已接受的 bridge 结论分流到正确的正式入口"
-  default_prompt: "Use $bridge-memory-maintenance to route accepted bridge repo decisions into AGENTS, PROJECT_MEMORY, CHANGELOG, or the formal architecture entry."
-
-policy:
-  allow_implicit_invocation: true

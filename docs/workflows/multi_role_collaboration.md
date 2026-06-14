@@ -2,7 +2,7 @@
 
 ## 1. 目标
 
-本文定义当前 bridge 开发中默认存在的 4 个角色，以及它们在需求、设计、实现、测试和验收阶段的职责分工。
+本文定义当前 AgentNexus 开发中默认存在的 4 个角色，以及它们在需求、设计、实现、测试和验收阶段的职责分工。
 
 本文解决的是：
 
@@ -13,11 +13,11 @@
 
 本文不解决：
 
-- bridge runtime 边界本身
+- AgentNexus runtime 边界本身
 - browser 自动化实现细节
-- M2+ action protocol 设计
+- N2+ action protocol 设计
 
-这些内容仍以 `readme.md`、`docs/architecture/bridge_runtime_architecture.md` 和具体实现 spec 为准。
+这些内容仍以 `readme.md`、`docs/architecture/nexus_runtime_architecture.md` 和具体实现 spec 为准。
 
 ## 2. 当前 4 个角色
 
@@ -53,6 +53,7 @@
 主责：
 
 - 作为目标使用方验证 bridge 产物是否可用
+- 作为目标使用方验证 AgentNexus 产物是否可用
 - 提供真实使用侧反馈、行为反馈和交互反馈
 - 参与与 Tabbit 能力边界相关的回归检查
 
@@ -165,7 +166,16 @@
 | Tabbit 可用性验证、使用侧回归 | Tabbit agent | 用户、仓库代码 agent | 使用反馈、失败路径、行为偏差 |
 | 最终接受、是否继续迭代 | 用户 | 全部角色 | 验收结论 |
 
-## 5. 交接规则
+## 5. Round-Based 协作补充
+
+当任务进入多轮协作时，除职责分工外还应遵守：
+
+- 默认使用 `max_rounds`、`current_round`、`stop_reason` 三个显式字段。
+- 每轮交接至少包含：当前任务、已用上下文、已执行动作、发现、风险、是否继续。
+- 若网页 GPT、Tabbit agent 与仓库代码 agent 出现冲突结论，必须在下一轮或最终报告中显式列出 `Disagreements`，而不是隐式覆盖。
+- 达成共识时输出 `Consensus Report`；未达成共识时输出 `Disagreement Report` 和 `Human Confirmation Points`。
+
+## 6. 交接规则
 
 ### 网页 GPT → 仓库代码 agent
 
@@ -206,7 +216,7 @@
 - 非显然风险
 - 尚未关闭的限制或 pending decision
 
-## 6. 升级条件
+## 7. 升级条件
 
 以下情况应从“常规协作”升级为“需要用户重新确认”：
 
@@ -216,10 +226,10 @@
 - 需要从只读升级到写入或命令执行
 - 网页 GPT、Tabbit agent 与仓库代码 agent 给出冲突建议
 
-## 7. 维护原则
+## 8. 维护原则
 
 - 用户是需求与验收 owner，不是日常实现者。
 - 仓库代码 agent 是默认主实现者，不自动拥有产品决策权。
 - 网页 GPT 和 Tabbit agent 默认提供反馈，不直接替代仓库真值入口。
 - 任何外部反馈进入仓库前，都需要由仓库代码 agent 重新整理为可验证变更。
-- 在 bridge 功能设计中，默认同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性；不接受只优化单端、却显著伤害另一端可用性的默认方案。
+- 在 AgentNexus 功能设计中，默认同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性；不接受只优化单端、却显著伤害另一端可用性的默认方案。

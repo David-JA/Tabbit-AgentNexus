@@ -1,10 +1,10 @@
 ---
-name: bridge-spec-workflow
-description: 为当前 Tabbit bridge 仓库的非平凡任务创建和维护单文件 discuss spec。适用于 protocol、policy、安全边界、browser/sandbox 职责划分、repo-local skill 或多文件实现方案变更。
-compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/architecture/bridge_runtime_architecture.md、docs/workflows/agent_conventions.md、docs/workflows/discuss_spec_workflow.md、docs/workflows/discuss_spec_template.md 和 scripts/tools/new_discuss_spec.py。
+name: nexus-spec-workflow
+description: 为当前 Tabbit AgentNexus 仓库的非平凡任务创建和维护单文件 discuss spec。适用于 protocol、policy、安全边界、browser/sandbox 职责划分、repo-local skill 或多文件实现方案变更。
+compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/architecture/nexus_runtime_architecture.md、docs/workflows/agent_conventions.md、docs/workflows/discuss_spec_workflow.md、docs/workflows/discuss_spec_template.md 和 scripts/tools/new_discuss_spec.py。
 ---
 
-# Bridge Spec Workflow
+# Nexus Spec Workflow
 
 ## 目标
 
@@ -17,7 +17,7 @@ compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/ar
 
 1. `AGENTS.md`
 2. `readme.md`
-3. `docs/architecture/bridge_runtime_architecture.md`
+3. `docs/architecture/nexus_runtime_architecture.md`
 4. `docs/workflows/agent_conventions.md`
 5. `docs/workflows/discuss_spec_workflow.md`
 6. `docs/workflows/discuss_spec_template.md`
@@ -27,7 +27,7 @@ compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/ar
 出现以下任一情况时应触发：
 
 - 非平凡多文件任务
-- bridge protocol / session policy / trust model 变化
+- AgentNexus protocol / session policy / trust model 变化
 - browser-side harness 与 sandbox-side script 的职责重划
 - `.agent/skills/` 新增或重构
 - 需要明确记录 requirements、design、validation 和 durable sync
@@ -39,7 +39,7 @@ python scripts/tools/new_discuss_spec.py `
   --title "<task title>" `
   --slug "<short-slug>" `
   --type workflow `
-  --profile bridge-default
+  --profile nexus-default
 ```
 
 ## 填写规则

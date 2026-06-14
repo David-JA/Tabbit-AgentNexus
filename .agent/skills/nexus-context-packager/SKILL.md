@@ -1,14 +1,14 @@
 ---
-name: bridge-repo-context-packager
-description: 为当前 Tabbit bridge 开发仓库生成面向外部 AI / 网页 AI 的 context pack zip。适用于 handoff、外部评审、Web AI 上下文包、repo overview bundle 等场景。
-compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 与 `scripts/tools/package_bridge_repo_context.py`，并具备 Python 执行权限。
+name: nexus-context-packager
+description: 为当前 Tabbit AgentNexus 开发仓库生成面向外部 AI / 网页 AI 的 context pack zip。适用于 handoff、外部评审、Web AI 上下文包、repo overview bundle 等场景。
+compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 与 `scripts/tools/package_nexus_context.py`，并具备 Python 执行权限。
 ---
 
-# Bridge Repo Context Packager
+# AgentNexus Context Packager
 
 ## 目标
 
-把当前 bridge 开发仓库打成一个**适合外部 AI 快速理解的 zip context pack**。
+把当前 AgentNexus 开发仓库打成一个**适合外部 AI 快速理解的 zip context pack**。
 
 这个包不是全量备份，而是：
 
@@ -20,7 +20,7 @@ compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 
 
 当用户提到以下意图时，优先使用本 skill：
 
-- “把这个 bridge repo 打包给网页版 AI / Web AI / 外部 AI”
+- “把这个 AgentNexus repo 打包给网页版 AI / Web AI / 外部 AI”
 - “做一个 handoff 包 / context pack / repo overview zip”
 - “把正式文档、当前 spec 和技能一起导出，方便别人快速理解”
 
@@ -29,7 +29,7 @@ compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 
 在执行前，先读取：
 
 1. `readme.md`
-2. `docs/architecture/bridge_runtime_architecture.md`
+2. `docs/architecture/nexus_runtime_architecture.md`
 3. `docs/architecture/tabbit_browser_agent_behavior_boundary.md`
 4. `docs/workflows/README_workflows.md`
 5. `./references/include-profiles.md`
@@ -39,7 +39,7 @@ compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 
 默认运行：
 
 ```powershell
-python scripts/tools/package_bridge_repo_context.py --profile overview
+python scripts/tools/package_nexus_context.py --profile overview
 ```
 
 脚本会输出：
@@ -56,30 +56,30 @@ python scripts/tools/package_bridge_repo_context.py --profile overview
 ### 更轻量
 
 ```powershell
-python scripts/tools/package_bridge_repo_context.py --profile minimal
+python scripts/tools/package_nexus_context.py --profile minimal
 ```
 
 ### 默认
 
 ```powershell
-python scripts/tools/package_bridge_repo_context.py --profile overview
+python scripts/tools/package_nexus_context.py --profile overview
 ```
 
 ### 控制 git 摘要条数
 
 ```powershell
-python scripts/tools/package_bridge_repo_context.py --profile overview --git-commits 9
+python scripts/tools/package_nexus_context.py --profile overview --git-commits 9
 ```
 
 ### 跳过 git 摘要
 
 ```powershell
-python scripts/tools/package_bridge_repo_context.py --profile overview --git-commits 0
+python scripts/tools/package_nexus_context.py --profile overview --git-commits 0
 ```
 
 ## 默认打包重点
 
-相较于参考仓库中的通用科研包，本 skill 更偏向当前 bridge 仓库的“正式入口 + 当前收敛 spec + repo-local workflow + 可评审实现核心”：
+相较于参考仓库中的通用科研包，本 skill 更偏向当前 AgentNexus 仓库的“正式入口 + 当前收敛 spec + repo-local workflow + 可评审实现核心”：
 
 - `readme.md`
 - `AGENTS.md`
@@ -107,7 +107,7 @@ python scripts/tools/package_bridge_repo_context.py --profile overview --git-com
 推荐输出格式：
 
 ```text
-已生成 bridge repo context pack:
+已生成 AgentNexus context pack:
 - 路径: <绝对路径>
 - 配置: overview
 - 文件数: N
@@ -119,7 +119,7 @@ python scripts/tools/package_bridge_repo_context.py --profile overview --git-com
 
 ## 边界
 
-- 这是给外部 AI 快速理解当前 bridge repo 的包，不是全量归档
+- 这是给外部 AI 快速理解当前 AgentNexus repo 的包，不是全量归档
 - 默认不打包 `.git/`
 - 默认不打包 `reference/`
 - 默认不打包 `exports/`

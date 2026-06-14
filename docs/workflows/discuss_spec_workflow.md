@@ -7,7 +7,7 @@
 满足任一条件时，建议先创建 spec：
 
 - 任务影响多个文件，并且有设计取舍
-- 修改 bridge protocol、session policy、权限模型或信任边界
+- 修改 AgentNexus / bridge adapter protocol、session policy、权限模型或信任边界
 - 修改 browser-side harness 与 sandbox-side scripts 的职责切分
 - 新增或重构 `.agent/skills/`
 - 需要留下一份可评审、可回填、可交接的实施记录
@@ -81,5 +81,5 @@ docs/workflows/discuss_spec_template.md
 
 ## 与 repo-local skill 的关系
 
-推荐通过 `.agent/skills/bridge-spec-workflow/` 触发本流程。
+推荐通过 `.agent/skills/nexus-spec-workflow/` 触发本流程。
 skill 负责提醒读取哪些正式入口；spec 文件负责记录这次任务本身。

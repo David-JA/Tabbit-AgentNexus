@@ -15,6 +15,13 @@
 
 ## 2026-06-15
 
+- 项目总定位升级为 `Tabbit AgentNexus`，并将 `Bridge` 降级为内部 adapter / transport pattern。
+- 新增 `docs/architecture/nexus_runtime_architecture.md` 与 `docs/workflows/bounded_agent_dialogue.md`，正式引入 capability planes、bounded unattended collaboration、scenario adapters 和共识/分歧汇报流程。
+- 同步 `readme.md`、`AGENTS.md`、`docs/PROJECT_MEMORY.md`、`docs/README_docs.md`、`docs/workflows/README_workflows.md`，把真值入口、roadmap 和 workflow 命名迁移到 AgentNexus。
+- 将 repo-local skills 重命名为 `nexus-spec-workflow`、`nexus-memory-maintenance`、`nexus-context-packager`、`nexus-multi-role-collaboration`，并新增 `nexus-bounded-dialogue`。
+- 将 `package_bridge_repo_context.py` 迁移为 `package_nexus_context.py`，输出 zip、manifest title、README reading order 和 profile 默认名同步改为 AgentNexus。
+- 将 `M1 Repo Review Bridge` 重新定位为 `N1 Local Workspace Review Adapter` 的 `repo-review` scenario，并在 active discuss 索引中标记历史名称。
+
 - 补齐 `M1 Repo Review Bridge` 前置实现契约：`M1 Runtime Contract`、`Browser Adapter Minimal Contract`、`send-to-AI confirmation gate`、context caps 与核心验证矩阵。
 - 落地首批可测试的 sandbox-side 核心：`config/default_policy.review_only.json`、`discover_repo.py`、`git_probe.py`、`policy.py`、`redact.py`、`context_packager.py`、`audit_log.py`。
 - 新增对应 fixtures 与单元测试骨架，用于验证路径策略、secret redaction、context packaging、git graceful degradation 与 audit 落盘。

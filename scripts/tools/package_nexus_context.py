@@ -27,23 +27,25 @@ class Profile:
 PROFILES = {
     "minimal": Profile(
         name="minimal",
-        description="正式入口 + 当前 M1 spec + repo-local skills 的轻量理解包。",
+        description="正式入口 + 当前 N1 spec + repo-local skills 的轻量理解包。",
         include=(
             "readme.md",
             "AGENTS.md",
             ".gitignore",
             "docs/PROJECT_MEMORY.md",
             "docs/README_docs.md",
+            "docs/architecture/nexus_runtime_architecture.md",
             "docs/architecture/bridge_runtime_architecture.md",
             "docs/architecture/tabbit_browser_agent_behavior_boundary.md",
             "docs/workflows/README_workflows.md",
             "docs/workflows/agent_conventions.md",
             "docs/workflows/discuss_spec_workflow.md",
+            "docs/workflows/bounded_agent_dialogue.md",
             "docs/reports/README_reports.md",
             "discuss/README_discuss.md",
             "discuss/2026-06-14_m1-repo-review-bridge-implement-spec.md",
             ".agent/skills",
-            "scripts/tools/package_bridge_repo_context.py",
+            "scripts/tools/package_nexus_context.py",
             "scripts/tools/new_discuss_spec.py",
         ),
     ),
@@ -67,7 +69,7 @@ PROFILES = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Package the current Tabbit bridge repo into an AI-readable zip context pack."
+        description="Package the current Tabbit AgentNexus repo into an AI-readable zip context pack."
     )
     parser.add_argument(
         "--profile",
@@ -179,7 +181,7 @@ def build_context_readme(profile: Profile, files: list[Path], git_status: str) -
         preview += f"\n- ... 另有 {len(rel_files) - 12} 个文件"
 
     lines = [
-        "# Bridge Repo Context Pack",
+        "# Tabbit AgentNexus Context Pack",
         "",
         f"- Profile: `{profile.name}`",
         f"- Description: {profile.description}",
@@ -193,10 +195,11 @@ def build_context_readme(profile: Profile, files: list[Path], git_status: str) -
         "3. `_context_pack/GIT_RECENT_COMMITS.md`",
         "4. `readme.md`",
         "5. `AGENTS.md`",
-        "6. `docs/architecture/bridge_runtime_architecture.md`",
+        "6. `docs/architecture/nexus_runtime_architecture.md`",
         "7. `docs/architecture/tabbit_browser_agent_behavior_boundary.md`",
         "8. `docs/workflows/README_workflows.md`",
-        "9. `config/` + `scripts/` + `tests/`",
+        "9. `docs/workflows/bounded_agent_dialogue.md`",
+        "10. `config/` + `scripts/` + `tests/`",
         "",
         "## Included File Preview",
         "",
@@ -227,7 +230,7 @@ def build_manifest(profile: Profile, files: list[Path], git_status: str, zip_pat
         )
 
     return {
-        "title": "Tabbit Bridge Repo Context Pack",
+        "title": "Tabbit AgentNexus Context Pack",
         "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "profile": profile.name,
         "description": profile.description,
@@ -245,7 +248,7 @@ def resolve_output_path(output_dir: Path, explicit_output: Path | None, profile:
     if explicit_output is not None:
         return explicit_output
     timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
-    return output_dir / f"bridge_repo_context_{profile.name}_{timestamp}.zip"
+    return output_dir / f"agent_nexus_context_{profile.name}_{timestamp}.zip"
 
 
 def package_repo(profile: Profile, output_path: Path, git_commits: int) -> dict:
@@ -290,7 +293,7 @@ def package_repo(profile: Profile, output_path: Path, git_commits: int) -> dict:
 
 def print_summary(result: dict) -> None:
     excluded = " / ".join(result["excluded"])
-    print("已生成 bridge repo context pack:")
+    print("已生成 AgentNexus context pack:")
     print(f"- 路径: {result['zip_path']}")
     print(f"- 配置: {result['profile']}")
     print(f"- 描述: {result['description']}")

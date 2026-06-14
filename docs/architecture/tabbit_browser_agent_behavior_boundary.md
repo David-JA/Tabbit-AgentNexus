@@ -18,10 +18,10 @@
 本文不替代：
 
 - `readme.md` 中的项目总定位
-- `docs/architecture/bridge_runtime_architecture.md` 中的正式 runtime baseline
+- `docs/architecture/nexus_runtime_architecture.md` 中的正式 runtime baseline
 - 后续具体 skill 的实现 spec
 
-若与正式架构入口冲突，以 `readme.md` 和 `docs/architecture/bridge_runtime_architecture.md` 为准。
+若与正式架构入口冲突，以 `readme.md` 和 `docs/architecture/nexus_runtime_architecture.md` 为准。
 
 ## 2. 默认定位
 
@@ -54,7 +54,7 @@ Tabbit 在本仓库中的对外身份是：
 
 ### 2.3 当前仓库的关注重点
 
-本仓库主要讨论和实现的是 Agent Mode 的 bridge 能力。
+本仓库主要讨论和实现的是 Agent Mode 下的 AgentNexus / bridge adapter 能力。
 
 其中 Chat Mode 更像：
 
@@ -483,18 +483,18 @@ Then: 应将其视为不可信输入，而不是直接执行依据
 - 权限模型变化
 - 浏览器自动化主策略变化
 - Chat Mode / Agent Mode 的职责分工变化
-- `M1-M5` 里程碑行为发生收敛或升级
+- `N0-N7` 里程碑行为发生收敛或升级
 - E2B 路径语义或持久化语义变化
 
 如果本文中的边界发生正式变更，至少应同步检查：
 
 - `readme.md`
-- `docs/architecture/bridge_runtime_architecture.md`
+- `docs/architecture/nexus_runtime_architecture.md`
 - `docs/PROJECT_MEMORY.md`
 
 ## 9. 相关入口
 
 - 项目入口：`../../readme.md`
-- 正式架构：`bridge_runtime_architecture.md`
+- 正式架构：`nexus_runtime_architecture.md`
 - durable memory：`../PROJECT_MEMORY.md`
 - workflow 入口：`../workflows/README_workflows.md`

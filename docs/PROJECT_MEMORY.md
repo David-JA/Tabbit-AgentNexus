@@ -4,11 +4,12 @@
 
 ## Runtime Boundary Baseline
 
-Tags: runtime, security, e2b, bridge
+Tags: runtime, security, e2b, nexus
 
 - 当前默认运行模型是 `E2B sandbox + mounted local folder + browser page automation`。
 - 不把用户机器 shell、`Native Messaging` 或本机 `HTTP server` 视为默认桥接能力。
-- bridge 的页面侧脚本只承担临时 harness 角色，不承担本地权限和长期策略。
+- AgentNexus 的页面侧脚本只承担临时 harness 角色，不承担本地权限和长期策略。
+- `Bridge` 是 AgentNexus 的内部 adapter / transport pattern，不再是项目总定位。
 
 Why it matters:
 未来 agent 容易把“浏览器能控网页”误扩展成“能直接调用本机程序”，这里必须持续压住边界。
@@ -17,8 +18,9 @@ Why it matters:
 
 Tags: roadmap, mvp, product
 
-- 默认从 `M1 Repo Review Bridge` 开始，而不是一步做到自动写入或命令执行。
-- `M2-M5` 是递进能力，不应提前假设已经启用。
+- 默认从 `N1 Local Workspace Review Adapter` 开始，而不是一步做到自动写入或命令执行。
+- `repo-review` 是 AgentNexus 的第一个 scenario adapter，不代表项目边界。
+- `N2-N7` 是递进能力，不应提前假设已经启用。
 
 Why it matters:
 这个顺序直接影响风险、验证范围和 prompt/protocol 复杂度。
@@ -34,11 +36,22 @@ Tags: trust, prompt-injection, policy
 Why it matters:
 bridge 仓库天然容易把“模型建议”误当“可执行操作”，这是核心安全边界。
 
+## Bounded Dialogue Baseline
+
+Tags: workflow, consensus, unattended, nexus
+
+- AgentNexus 的核心产品能力之一是 `bounded multi-round consensus`，而不是无限轮无人值守讨论。
+- 多智能体协作必须显式设置 `max_rounds`、停止条件、人工确认点和风险汇报结构。
+- 若未达成共识，系统应输出 `Disagreement Report` 和 `Human Confirmation Points`，而不是伪装成已完成结论。
+
+Why it matters:
+如果没有轮次和停止条件，多角色协作会从“受控协商”滑向不可审计的长链幻觉放大。
+
 ## Documentation Routing
 
 Tags: docs, workflow, maintenance
 
-- 正式架构落在 `docs/architecture/bridge_runtime_architecture.md`。
+- 正式架构落在 `docs/architecture/nexus_runtime_architecture.md`。
 - 协作约定落在 `docs/workflows/agent_conventions.md`。
 - accepted 阶段报告或设计/验证报告落在 `docs/reports/`。
 - 非平凡实现前的执行 spec 落在 `discuss/`。
@@ -64,7 +77,7 @@ Why it matters:
 
 Tags: product, workflow, usability, gpt, tabbit
 
-- 当前项目的基本定位，是在 AI 浏览器新架构下开发一个 bridge 中枢，使用户能低成本调用网页端高性能 AI。
+- 当前项目的基本定位，是在 AI 浏览器新架构下开发一个 AgentNexus 中枢，使用户能低成本调用网页端高性能 AI，并把浏览器协作、本地工作区和产物管理串成受控闭环。
 - 当前网页端 AI 的主要适配目标是 GPT。
 - Tabbit agent 在这个架构里不是可忽略的执行器，而是中介与副手，负责帮助连接本地上下文、页面交互与受控执行流程。
 - 默认实现应同时考虑网页端 GPT 与 Tabbit agent 的需求和易用性，不能只优化其中一端。

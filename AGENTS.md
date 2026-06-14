@@ -13,17 +13,17 @@
 ## Conditional Reading Triggers
 
 - 涉及 bridge 运行边界、权限模型、M1-M5 行为、页面脚本职责切分：
-  必须读取 `docs/architecture/bridge_runtime_architecture.md`。
+  必须读取 `docs/architecture/nexus_runtime_architecture.md`。
 - 涉及阶段报告、BDD 行为约束、commit message、命名、review checklist、PowerShell/sandbox 操作约定：
   必须读取 `docs/workflows/agent_conventions.md`。
 - 涉及非平凡多文件改动、workflow/skill/protocol/security/policy 变更、页面自动化策略变化：
-  必须读取 `docs/workflows/discuss_spec_workflow.md`，并优先使用 `.agent/skills/bridge-spec-workflow/`。
+  必须读取 `docs/workflows/discuss_spec_workflow.md`，并优先使用 `.agent/skills/nexus-spec-workflow/`。
 - 涉及 durable decision、文档分层、规则沉淀、变更收口：
-  必须读取 `docs/PROJECT_MEMORY.md` 和 `.agent/skills/bridge-memory-maintenance/`。
+  必须读取 `docs/PROJECT_MEMORY.md` 和 `.agent/skills/nexus-memory-maintenance/`。
 
 ## 仓库目标
 
-这个仓库不是 bridge 功能的最终运行环境，而是 bridge skill 的开发仓库。
+这个仓库不是最终运行环境，而是 AgentNexus skill 的开发仓库。
 默认优化目标是：
 
 - 先收敛安全边界和运行边界
@@ -35,7 +35,7 @@
 当文档之间有冲突时，按以下顺序判断：
 
 1. `readme.md`
-2. `docs/architecture/bridge_runtime_architecture.md`
+2. `docs/architecture/nexus_runtime_architecture.md`
 3. `docs/PROJECT_MEMORY.md`
 4. `docs/workflows/README_workflows.md`
 5. `discuss/` 下已存在的讨论材料
@@ -51,7 +51,7 @@
 
 ```text
 Given: 当前 session / repo / policy 处于什么状态
-When: bridge 或 agent 执行什么动作
+When: AgentNexus / adapter / agent 执行什么动作
 Then: 应允许、拒绝、记录或提示什么结果
 ```
 
@@ -83,7 +83,7 @@ Then: 应允许、拒绝、记录或提示什么结果
 
 - 如果改变了默认 runtime boundary、权限模型或里程碑行为，至少同步：
   - `readme.md`
-  - `docs/architecture/bridge_runtime_architecture.md`
+  - `docs/architecture/nexus_runtime_architecture.md`
   - `docs/PROJECT_MEMORY.md`
 - 如果新增了稳定的 agent workflow，同时同步：
   - `docs/workflows/README_workflows.md`

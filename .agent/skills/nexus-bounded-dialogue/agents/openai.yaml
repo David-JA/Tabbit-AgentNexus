@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentNexus 多轮协作"
+  short_description: "为 AgentNexus 任务建立 bounded dialogue、轮次上限和共识/分歧收口"
+  default_prompt: "Use $nexus-bounded-dialogue to structure this AgentNexus multi-round collaboration with explicit round limits, handoffs, and consensus/disagreement reporting."
+
+policy:
+  allow_implicit_invocation: true

@@ -1,10 +1,10 @@
 ---
-name: bridge-memory-maintenance
-description: 为当前 Tabbit bridge 仓库分流已接受的规则、durable decision 和变更摘要。适用于需要判断信息应写入 AGENTS、PROJECT_MEMORY、CHANGELOG、正式架构入口还是继续留在 discuss 的场景。
-compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/README_docs.md、docs/PROJECT_MEMORY.md、docs/CHANGELOG.md 和 docs/architecture/bridge_runtime_architecture.md。
+name: nexus-memory-maintenance
+description: 为当前 Tabbit AgentNexus 仓库分流已接受的规则、durable decision 和变更摘要。适用于需要判断信息应写入 AGENTS、PROJECT_MEMORY、CHANGELOG、正式架构入口还是继续留在 discuss 的场景。
+compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/README_docs.md、docs/PROJECT_MEMORY.md、docs/CHANGELOG.md 和 docs/architecture/nexus_runtime_architecture.md。
 ---
 
-# Bridge Memory Maintenance
+# Nexus Memory Maintenance
 
 ## 目标
 
@@ -24,7 +24,7 @@ compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/RE
 
 ## 使用时机
 
-- 某项 bridge 结论已经被接受
+- 某项 AgentNexus 结论已经被接受
 - 某项 workflow 已经稳定
 - 需要判断一个实现结果是否应升级为 durable memory
 - 需要在任务完成后做收口

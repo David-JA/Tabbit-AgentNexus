@@ -25,12 +25,12 @@
 - `discuss_spec_workflow.md`
 - `discuss_spec_template.md`
 - `../../scripts/tools/new_discuss_spec.py`
-- `../../.agent/skills/bridge-spec-workflow/`
+- `../../.agent/skills/nexus-spec-workflow/`
 
 适用场景：
 
 - 非平凡多文件改动
-- bridge protocol / policy / security boundary 变更
+- AgentNexus protocol / policy / security boundary 变更
 - browser script 与 sandbox script 职责边界变化
 - skill/harness 结构升级
 
@@ -38,23 +38,23 @@
 
 入口：
 
-- `../../.agent/skills/bridge-memory-maintenance/`
+- `../../.agent/skills/nexus-memory-maintenance/`
 
 适用场景：
 
 - 某项结论已经被接受，需要分流到 `AGENTS.md`、`docs/PROJECT_MEMORY.md`、`docs/CHANGELOG.md`
 - 需要判断某段信息该留在 `discuss/` 还是沉淀成正式入口
 
-### 4. Bridge Repo Context Packager
+### 4. AgentNexus Context Packager
 
 入口：
 
-- `../../.agent/skills/bridge-repo-context-packager/`
-- `../../scripts/tools/package_bridge_repo_context.py`
+- `../../.agent/skills/nexus-context-packager/`
+- `../../scripts/tools/package_nexus_context.py`
 
 适用场景：
 
-- 为外部 AI / 网页 AI 生成 bridge 仓库理解包
+- 为外部 AI / 网页 AI 生成 AgentNexus 仓库理解包
 - 做 handoff zip、repo overview bundle、外部评审上下文包
 - 需要把正式入口、当前 spec、repo-local skills 和维护脚手架一起导出
 
@@ -63,13 +63,26 @@
 入口：
 
 - `multi_role_collaboration.md`
-- `../../.agent/skills/bridge-multi-role-collaboration/`
+- `../../.agent/skills/nexus-multi-role-collaboration/`
 
 适用场景：
 
 - 用户、网页 GPT、Tabbit agent、仓库代码 agent 同时参与当前任务
 - 需要明确谁主责需求、谁主责实现、谁负责反馈、谁做最终验收
 - 需要为多角色协作建立默认任务路由和交接物
+
+### 6. Bounded Agent Dialogue
+
+入口：
+
+- `bounded_agent_dialogue.md`
+- `../../.agent/skills/nexus-bounded-dialogue/`
+
+适用场景：
+
+- 需要 round-based 多智能体协作
+- 需要显式记录共识、分歧、风险和停止原因
+- 需要把网页端高性能 Agent、Tabbit agent 和仓库代码 agent 的多轮交互收口成可执行报告
 
 ## 设计原则
 

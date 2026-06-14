@@ -1,17 +1,24 @@
-# Tabbit Bridge Skill Dev Repo
+# Tabbit AgentNexus
 
-这个仓库用于开发面向 Tabbit AI 浏览器的 bridge skill。它的产品目标不是单纯做一个自动化脚本，而是在 AI 浏览器新架构下开发一个 bridge 中枢，使用户能够以更低成本充分调用网页端高性能 AI；在当前阶段，主要网页端适配目标是 GPT，而 Tabbit agent 则承担中介与副手角色，帮助把本地上下文、页面交互和受控执行连接起来。
+这个仓库用于开发面向 Tabbit AI 浏览器的多智能体协作 skill。`AgentNexus` 的目标不是做单一站点的仓库桥接器，而是以 Tabbit 浏览器 Agent 为协作中枢，连接网页端高性能 Agent、本地挂载工作区、网页搜索、收藏夹、富文本页面和文件产物，在受控权限、审计记录和人工确认边界内完成上下文打包、多轮讨论、交叉评审、共识形成、分歧汇报和后续受控执行。
+
+其中：
+
+- `Bridge` 是 AgentNexus 的一种内部 adapter / transport pattern
+- `repo-review` 是 AgentNexus 当前第一个优先落地的 scenario adapter
+- 当前主要网页端推理适配目标仍是 GPT，但设计不应被单一站点锁死
 
 ## 当前定位
 
-- 当前优先级是先把 `M1 Repo Review Bridge` 做扎实。
+- 当前优先级是先把 `N1 Local Workspace Review Adapter` 做扎实。
 - 架构默认基于 `E2B sandbox + mounted local folder + browser page automation`。
 - 不把 `Native Messaging`、本机 `HTTP server`、用户机器 `PowerShell/cmd` 当成默认前提。
 - 当前实现与 workflow 需要同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性，而不是只优化其中一端。
+- 无人值守能力默认采用 `bounded unattended collaboration`，必须带轮次上限、权限上限、失败上限和人工确认出口。
 
 ## 正式入口
 
-- 架构真值入口：`docs/architecture/bridge_runtime_architecture.md`
+- 架构真值入口：`docs/architecture/nexus_runtime_architecture.md`
 - Tabbit 浏览器 agent 行为边界：`docs/architecture/tabbit_browser_agent_behavior_boundary.md`
 - agent 协作规则：`AGENTS.md`
 - 文档分层说明：`docs/README_docs.md`
@@ -51,8 +58,11 @@
 
 ## 里程碑
 
-1. `M1 Repo Review Bridge`：生成 context pack，送入目标 AI 页面，保存 review report
-2. `M2 Read-more Bridge`：AI 请求额外文件，经过策略校验和确认后追加读取
-3. `M3 Patch Proposal`：AI 输出 patch/diff，仅校验与保存
-4. `M4 Apply with Approval`：用户确认后执行受控写入
-5. `M5 Validation Commands`：用户确认后运行白名单验证命令
+1. `N0 Runtime Boundary & Capability Baseline`：冻结运行边界、能力平面、信任模型和默认禁区
+2. `N1 Local Workspace Review Adapter`：生成 context pack，送入目标 AI 页面，保存 review report
+3. `N2 Bounded Read-More Dialogue`：在策略和上限内支持追加上下文读取
+4. `N3 Multi-Agent Consensus Loop`：支持多轮协作、共识/分歧汇报和停止条件
+5. `N4 Proposal Capture & Artifact Writer`：结构化保存建议、草案和报告产物
+6. `N5 Approved Workspace Mutation`：用户确认后执行受控写入
+7. `N6 Approved Validation Commands`：用户确认后运行白名单验证命令
+8. `N7 Multi-Scenario Browser Workspace`：扩展到 literature-reading、knowledge-vault、browser-research、rich-document/report 等 scenario

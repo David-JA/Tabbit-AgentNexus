@@ -1,13 +1,16 @@
-# M1 Repo Review Bridge Implement Spec
+# N1 Local Workspace Review Adapter Implement Spec
+
+> Former name: `M1 Repo Review Bridge`
+> Scenario: `repo-review`
 
 > Status: M1 scaffold in progress
 > Created: 2026-06-14
 > Spec type: implementation
-> Profile: bridge-default
+> Profile: nexus-default
 
 ## Summary
 
-定义 `M1 Repo Review Bridge` 的最小可实施范围：只读生成 context pack，发送到目标 AI 页面，捕获 review report 并保存 artifact，全程不修改仓库、不解析 AI action、不运行命令。
+定义 `N1 Local Workspace Review Adapter` 在 `repo-review` scenario 下的最小可实施范围：只读生成 context pack，发送到目标 AI 页面，捕获 review report 并保存 artifact，全程不修改仓库、不解析 AI action、不运行命令。
 
 ## Scope
 

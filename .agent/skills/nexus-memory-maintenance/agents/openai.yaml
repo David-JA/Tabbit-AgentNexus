@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentNexus 记忆维护"
+  short_description: "把已接受的 AgentNexus 结论分流到正确的正式入口"
+  default_prompt: "Use $nexus-memory-maintenance to route accepted AgentNexus repo decisions into AGENTS, PROJECT_MEMORY, CHANGELOG, or the formal architecture entry."
+
+policy:
+  allow_implicit_invocation: true

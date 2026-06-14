@@ -53,7 +53,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--profile",
-        default="bridge-default",
+        default="nexus-default",
         help="Profile label written into the template.",
     )
     parser.add_argument(

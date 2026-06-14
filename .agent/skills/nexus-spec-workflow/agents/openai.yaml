@@ -1,0 +1,7 @@
+interface:
+  display_name: "AgentNexus 任务 Spec"
+  short_description: "为当前 AgentNexus 仓库的非平凡任务创建和维护 discuss spec"
+  default_prompt: "Use $nexus-spec-workflow to create or update a discuss spec before implementing this non-trivial AgentNexus repo change."
+
+policy:
+  allow_implicit_invocation: true

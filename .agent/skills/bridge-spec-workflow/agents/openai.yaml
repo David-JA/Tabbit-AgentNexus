@@ -1,7 +1,0 @@
-interface:
-  display_name: "Bridge 任务 Spec"
-  short_description: "为当前 bridge 仓库的非平凡任务创建和维护 discuss spec"
-  default_prompt: "Use $bridge-spec-workflow to create or update a discuss spec before implementing this non-trivial bridge repo change."
-
-policy:
-  allow_implicit_invocation: true
