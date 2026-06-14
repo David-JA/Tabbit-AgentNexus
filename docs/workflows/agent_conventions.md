@@ -17,11 +17,11 @@
 
 本文不承担：
 
-- bridge 架构真值
+- AgentNexus 架构真值
 - 运行边界定义
 - session policy 设计本身
 
-这些内容仍以 `AGENTS.md` 和 `docs/architecture/bridge_runtime_architecture.md` 为准。
+这些内容仍以 `AGENTS.md` 和 `docs/architecture/nexus_runtime_architecture.md` 为准。
 
 ## 2. Stage Report Convention
 

@@ -34,7 +34,7 @@ Tags: trust, prompt-injection, policy
 - 任何读取扩权、patch 应用、命令执行都必须经过本地策略层判断，不能只靠 prompt 约束。
 
 Why it matters:
-bridge 仓库天然容易把“模型建议”误当“可执行操作”，这是核心安全边界。
+AgentNexus 仓库天然容易把“模型建议”误当“可执行操作”，这是核心安全边界。
 
 ## Bounded Dialogue Baseline
 
@@ -64,7 +64,7 @@ Why it matters:
 
 Tags: workflow, collaboration, roles
 
-- 当前 bridge 开发默认存在 4 个角色：用户、网页 GPT、Tabbit agent、仓库代码 agent。
+- 当前 AgentNexus 开发默认存在 4 个角色：用户、网页 GPT、Tabbit agent、仓库代码 agent。
 - 用户负责需求确认、优先级和最终验收。
 - 网页 GPT 负责架构建议、spec 收敛和实现过程中的 reviewer 反馈。
 - Tabbit agent 负责目标使用方测试与行为反馈。

@@ -18,7 +18,7 @@ compatibility: 需要能读取当前仓库中的 AGENTS.md、readme.md、docs/RE
 | 当前默认规则、禁令、协作边界 | `AGENTS.md` |
 | 长期有效的接受结论 | `docs/PROJECT_MEMORY.md` |
 | 面向人的变更摘要 | `docs/CHANGELOG.md` |
-| 当前正式架构口径 | `docs/architecture/bridge_runtime_architecture.md` |
+| 当前正式架构口径 | `docs/architecture/nexus_runtime_architecture.md` |
 | 仍在讨论中的方案 | `discuss/` |
 | 可复用 agent 流程 | `.agent/skills/` 或 `docs/workflows/` |
 

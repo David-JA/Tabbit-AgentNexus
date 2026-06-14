@@ -83,7 +83,7 @@
 - [x] `T4`: 新增 bounded dialogue workflow，并同步 multi-role collaboration 的 round-based 补充。
 - [x] `T5`: 将 repo-local skills 和 context pack script 迁移到 `nexus-*` 命名。
 - [x] `T6`: 更新 active discuss 索引和 M1 spec 的历史名称 / 迁移定位说明。
-- [ ] `T7`: 运行帮助命令、编译、测试和 context pack 验证。
+- [x] `T7`: 运行帮助命令、编译、测试和 context pack 验证。
 
 ## Validation
 
@@ -103,6 +103,7 @@
 - 新增 `docs/workflows/bounded_agent_dialogue.md`，并更新 workflow / skills / docs map。
 - 将 active skills 和 context pack 脚本迁移到 `nexus-*` 命名。
 - 同步 readme、AGENTS、PROJECT_MEMORY、CHANGELOG 和 discuss 索引，使 `Bridge` 降级为内部 adapter，`repo-review` 降级为首个 scenario。
+- 已完成 `git diff --stat`、`python -m py_compile`、CLI `--help`、`package_nexus_context.py --profile overview` 和 `python -m pytest -q` 验证。
 
 ### Not completed
 
