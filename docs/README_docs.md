@@ -8,6 +8,7 @@
 |----------|------|
 | 当前项目概览 | `../readme.md` |
 | bridge 正式架构 | `architecture/bridge_runtime_architecture.md` |
+| Tabbit 浏览器 agent 行为边界 | `architecture/tabbit_browser_agent_behavior_boundary.md` |
 | durable memory | `PROJECT_MEMORY.md` |
 | 面向人的变更摘要 | `CHANGELOG.md` |
 | workflow 说明 | `workflows/` |
@@ -17,6 +18,7 @@
 ## 当前正式入口
 
 - 架构入口：`architecture/bridge_runtime_architecture.md`
+- Tabbit 浏览器 agent 边界入口：`architecture/tabbit_browser_agent_behavior_boundary.md`
 - workflow 入口：`workflows/README_workflows.md`
 - 协作约定入口：`workflows/agent_conventions.md`
 - 报告入口：`reports/README_reports.md`

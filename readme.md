@@ -11,6 +11,7 @@
 ## 正式入口
 
 - 架构真值入口：`docs/architecture/bridge_runtime_architecture.md`
+- Tabbit 浏览器 agent 行为边界：`docs/architecture/tabbit_browser_agent_behavior_boundary.md`
 - agent 协作规则：`AGENTS.md`
 - 文档分层说明：`docs/README_docs.md`
 - durable memory：`docs/PROJECT_MEMORY.md`

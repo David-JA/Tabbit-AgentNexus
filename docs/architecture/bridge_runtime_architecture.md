@@ -123,6 +123,7 @@
 
 ## 7. 相关材料
 
+- Tabbit 浏览器 agent 行为边界：`tabbit_browser_agent_behavior_boundary.md`
 - 讨论稿：`discuss/archive/tabbit-gpt-bridge-architecture-discussion.md`
 - 最终讨论版：`discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`
 - skill 与发布可行性：`discuss/archive/tabbit-skill-script-relationship-and-publishing-feasibility.md`
