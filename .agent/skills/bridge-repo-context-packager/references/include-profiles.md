@@ -21,6 +21,7 @@
 - `discuss/README_discuss.md`
 - `discuss/2026-06-14_m1-repo-review-bridge-implement-spec.md`
 - `.agent/skills/`
+- `scripts/tools/package_bridge_repo_context.py`
 - `scripts/tools/new_discuss_spec.py`
 
 不包含：
