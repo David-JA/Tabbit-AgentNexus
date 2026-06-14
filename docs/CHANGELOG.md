@@ -10,3 +10,4 @@
 - 同步一批跨项目也通用的轻量协作约定：`docs/workflows/agent_conventions.md`、`docs/reports/README_reports.md`、`discuss/README_discuss.md`。
 - 补充仓库级 `.gitignore`，忽略常见 Python 缓存与噪声文件。
 - 新增 `docs/architecture/tabbit_browser_agent_behavior_boundary.md`，沉淀 Tabbit 浏览器 agent 的能力矩阵、操作纪律、路径语义与已知限制。
+- 补充 Git 提交相关的 accepted 运维经验：明确 `safe.directory` 归因、提交前 Git 身份检查，并新增一份 `docs/reports/` 报告沉淀完整诊断过程。

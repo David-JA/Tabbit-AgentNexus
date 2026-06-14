@@ -145,6 +145,22 @@ Limitations:
 - 若并行命令出现环境噪声或失败，优先退回顺序执行。
 - 若关键命令确实被沙箱限制，应请求提权，而不是发明奇怪 workaround。
 
+### Git 提交前检查
+
+当任务需要在 E2B sandbox 中执行 Git 提交时，建议先确认以下环境项：
+
+1. 仓库路径是否已加入 `safe.directory`
+2. 当前环境是否已配置 `user.name`
+3. 当前环境是否已配置 `user.email`
+
+推荐判断顺序：
+
+- 若 Git 报 `dubious ownership`，先处理 `safe.directory`
+- 若 Git 报 `Author identity unknown`，先补 `user.name` 和 `user.email`
+- 只有在这些初始化项都正常后，才继续判断是否是 hook、权限模型或命令本身的问题
+
+建议把这类问题归为“环境初始化缺失”或“挂载仓库已知限制”，不要直接误报为 agent 没有提交能力。
+
 ## 9. Lightweight Review Checklist
 
 做实现复核时，优先检查：

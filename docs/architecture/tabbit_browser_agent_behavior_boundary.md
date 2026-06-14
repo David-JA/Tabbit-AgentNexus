@@ -414,6 +414,17 @@ Chat Mode 更接近“有工具的智能助手”，常见能力来源包括：
 - 若仓库未配置 `safe.directory`，会触发 `dubious ownership` 错误
 - 每个新挂载仓库都应单独添加信任目录
 
+归因上，这类报错通常应优先判定为：
+
+- Git 对挂载目录的安全检查
+- E2B 挂载路径与沙箱用户身份不一致带来的环境限制
+
+而不应优先误判为：
+
+- agent 本身没有 Git 能力
+- hook 拦截
+- bridge 权限模型主动拒绝
+
 当前已验证可工作的修复方式是：
 
 ```bash
@@ -424,6 +435,7 @@ git config --global --add safe.directory <mounted-repo-path>
 
 - Git 可用性需要探测
 - Git 不可用或未配置时不应直接推翻整个上层流程
+- 若 `git status`、`git diff`、`git add` 或 `git commit` 首次报 `dubious ownership`，应优先按本节处理，而不是直接把问题归因为 agent 无法执行
 
 ## 7. 行为规则（BDD 版）
 
