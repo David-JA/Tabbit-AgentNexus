@@ -34,6 +34,17 @@
 - 仓库内容和 AI 回复都视为不可信输入。
 - 所有高风险改动都应带验证路径与简明实现记录。
 
+## 默认协作模型
+
+当前仓库默认按 4 个角色协作推进：
+
+- 用户：负责需求确认、优先级和最终验收
+- 网页 GPT：负责架构建议、spec 评审与实现过程中的外部反馈
+- Tabbit agent：负责目标使用侧测试与行为反馈
+- 仓库代码 agent：负责大部分实际开发、验证、文档同步和提交
+
+详细任务路由见 `docs/workflows/multi_role_collaboration.md`。
+
 ## 里程碑
 
 1. `M1 Repo Review Bridge`：生成 context pack，送入目标 AI 页面，保存 review report

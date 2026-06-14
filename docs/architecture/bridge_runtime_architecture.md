@@ -1,7 +1,7 @@
 # Bridge Runtime Architecture
 
 > Status: accepted baseline for current development repo
-> Last updated: 2026-06-14
+> Last updated: 2026-06-15
 > Derived from: `discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`
 
 ## 1. 目标
@@ -121,9 +121,29 @@
 - 先只读评审，后追加能力
 - 优先沉淀 repo-local workflow，而不是先追求全站点适配
 
-## 7. 相关材料
+## 7. 默认协作角色
+
+当前仓库默认按以下 4 个角色推进 bridge 开发：
+
+1. 用户
+   - 负责需求、优先级、风险确认和最终验收
+2. 网页 GPT
+   - 负责架构建议、spec 收敛和实现过程中的 reviewer 反馈
+3. Tabbit agent
+   - 负责目标使用方视角的测试、回归观察和行为反馈
+4. 仓库代码 agent
+   - 负责仓库内的大部分实际开发、测试、文档同步和提交
+
+约束：
+
+- 网页 GPT 和 Tabbit agent 默认提供建议或反馈，不直接替代仓库真值入口。
+- 仓库代码 agent 负责把外部反馈整理成仓库内可验证变更。
+- 用户始终保留需求和验收的最终决定权。
+
+## 8. 相关材料
 
 - Tabbit 浏览器 agent 行为边界：`tabbit_browser_agent_behavior_boundary.md`
+- 多角色协作 workflow：`../workflows/multi_role_collaboration.md`
 - 讨论稿：`discuss/archive/tabbit-gpt-bridge-architecture-discussion.md`
 - 最终讨论版：`discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`
 - skill 与发布可行性：`discuss/archive/tabbit-skill-script-relationship-and-publishing-feasibility.md`

@@ -58,6 +58,19 @@
 - 做 handoff zip、repo overview bundle、外部评审上下文包
 - 需要把正式入口、当前 spec、repo-local skills 和维护脚手架一起导出
 
+### 5. Multi-Role Collaboration
+
+入口：
+
+- `multi_role_collaboration.md`
+- `../../.agent/skills/bridge-multi-role-collaboration/`
+
+适用场景：
+
+- 用户、网页 GPT、Tabbit agent、仓库代码 agent 同时参与当前任务
+- 需要明确谁主责需求、谁主责实现、谁负责反馈、谁做最终验收
+- 需要为多角色协作建立默认任务路由和交接物
+
 ## 设计原则
 
 - workflow 文档只描述稳定做法，不承接一次性任务细节。

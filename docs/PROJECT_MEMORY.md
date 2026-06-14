@@ -46,3 +46,16 @@ Tags: docs, workflow, maintenance
 
 Why it matters:
 仓库正在从讨论期进入实现期，需要先把信息放对位置，避免后续持续漂移。
+
+## Multi-Role Collaboration Model
+
+Tags: workflow, collaboration, roles
+
+- 当前 bridge 开发默认存在 4 个角色：用户、网页 GPT、Tabbit agent、仓库代码 agent。
+- 用户负责需求确认、优先级和最终验收。
+- 网页 GPT 负责架构建议、spec 收敛和实现过程中的 reviewer 反馈。
+- Tabbit agent 负责目标使用方测试与行为反馈。
+- 仓库代码 agent 负责仓库内的大部分实现、验证、文档同步和提交收口。
+
+Why it matters:
+多角色协作已经是当前仓库的常态，如果不把角色边界和默认任务路由写清，未来 agent 很容易重复评审、错配职责或把外部建议误当成已接受决策。

@@ -18,3 +18,4 @@
 - 补齐 `M1 Repo Review Bridge` 前置实现契约：`M1 Runtime Contract`、`Browser Adapter Minimal Contract`、`send-to-AI confirmation gate`、context caps 与核心验证矩阵。
 - 落地首批可测试的 sandbox-side 核心：`config/default_policy.review_only.json`、`discover_repo.py`、`git_probe.py`、`policy.py`、`redact.py`、`context_packager.py`、`audit_log.py`。
 - 新增对应 fixtures 与单元测试骨架，用于验证路径策略、secret redaction、context packaging、git graceful degradation 与 audit 落盘。
+- 新增 4 角色协作 workflow：明确用户、网页 GPT、Tabbit agent、仓库代码 agent 的职责边界、默认任务路由和交接规则。
