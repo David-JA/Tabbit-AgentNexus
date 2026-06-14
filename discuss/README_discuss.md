@@ -8,9 +8,8 @@
 | Date | Status | Type | Title | File | Notes |
 |---|---|---|---|---|---|
 | 2026-06-14 | Completed | workflow | Bridge repo conventions sync | [2026-06-14_bridge-repo-conventions-sync.md](2026-06-14_bridge-repo-conventions-sync.md) | conventions synced and first commit prepared |
-| 2026-06-14 | Reference discussion | architecture | Tabbit GPT Bridge architecture discussion | [tabbit-gpt-bridge-architecture-discussion.md](tabbit-gpt-bridge-architecture-discussion.md) | pre-formal discussion |
-| 2026-06-14 | Accepted discussion basis | architecture | Tabbit GPT Bridge final architecture v4 | [tabbit-gpt-bridge-final-architecture-v4.md](tabbit-gpt-bridge-final-architecture-v4.md) | basis for formal architecture entry |
-| 2026-06-14 | Reference discussion | feasibility | Tabbt skill/script relationship and publishing feasibility | [tabbit-skill-script-relationship-and-publishing-feasibility.md](tabbit-skill-script-relationship-and-publishing-feasibility.md) | publication-oriented analysis |
+| 2026-06-14 | Comprehensive reference | architecture | Tabbit GPT Bridge comprehensive architecture | [2026-06-14_tabbit-gpt-bridge-comprehensive-architecture.md](2026-06-14_tabbit-gpt-bridge-comprehensive-architecture.md) | merged reference from 3 docs; not formal source of truth |
+| 2026-06-14 | Ready for implementation planning | implementation | M1 Repo Review Bridge implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | M1-only scope, BDD, validation, and explicit M2+ exclusions |
 <!-- DISCUSS_SPEC_INDEX:END -->
 
 ## 放置规则
@@ -21,5 +20,14 @@
 
 ## 当前状态
 
-- 现有三份 Tabbit 相关讨论材料仍保留为背景依据和历史推导链。
+- 三份原始 Tabbit 讨论材料已归档到 `archive/`，仅作为历史推导链保留；综合方案（`2026-06-14_tabbit-gpt-bridge-comprehensive-architecture.md`）作为合并后的背景参考；正式真值仍以 `readme.md`、`docs/architecture/bridge_runtime_architecture.md` 和 `docs/PROJECT_MEMORY.md` 为准。
+- M1 实现前的收敛入口是 `2026-06-14_m1-repo-review-bridge-implement-spec.md`。
 - `2026-06-14_bridge-repo-conventions-sync.md` 记录了当前仓库从骨架初始化继续收口到协作约定同步与首次提交的过程。
+
+## Archive
+
+旧讨论稿不再作为活跃入口：
+
+- [tabbit-gpt-bridge-architecture-discussion.md](archive/tabbit-gpt-bridge-architecture-discussion.md)
+- [tabbit-gpt-bridge-final-architecture-v4.md](archive/tabbit-gpt-bridge-final-architecture-v4.md)
+- [tabbit-skill-script-relationship-and-publishing-feasibility.md](archive/tabbit-skill-script-relationship-and-publishing-feasibility.md)

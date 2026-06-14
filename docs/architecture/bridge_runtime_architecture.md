@@ -2,7 +2,7 @@
 
 > Status: accepted baseline for current development repo
 > Last updated: 2026-06-14
-> Derived from: `discuss/tabbit-gpt-bridge-final-architecture-v4.md`
+> Derived from: `discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`
 
 ## 1. 目标
 
@@ -123,6 +123,6 @@
 
 ## 7. 相关材料
 
-- 讨论稿：`discuss/tabbit-gpt-bridge-architecture-discussion.md`
-- 最终讨论版：`discuss/tabbit-gpt-bridge-final-architecture-v4.md`
-- skill 与发布可行性：`discuss/tabbit-skill-script-relationship-and-publishing-feasibility.md`
+- 讨论稿：`discuss/archive/tabbit-gpt-bridge-architecture-discussion.md`
+- 最终讨论版：`discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`
+- skill 与发布可行性：`discuss/archive/tabbit-skill-script-relationship-and-publishing-feasibility.md`

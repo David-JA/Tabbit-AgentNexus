@@ -27,7 +27,7 @@
 
 - 当前已知事实：当前仓库已完成第一轮轻量 harness 初始化，但还缺少 `agent_conventions`、`reports`、`discuss index` 这些更偏协作层的通用约定。
 - 相关正式入口：`AGENTS.md`、`readme.md`、`docs/architecture/bridge_runtime_architecture.md`、`docs/workflows/README_workflows.md`
-- 相关讨论或参考：`discuss/tabbit-gpt-bridge-final-architecture-v4.md`、参考仓库 `docs/workflows/agent_conventions.md`
+- 相关讨论或参考：`discuss/archive/tabbit-gpt-bridge-final-architecture-v4.md`、参考仓库 `docs/workflows/agent_conventions.md`
 
 ## Requirements
 
