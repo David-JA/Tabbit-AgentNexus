@@ -59,3 +59,15 @@ Tags: workflow, collaboration, roles
 
 Why it matters:
 多角色协作已经是当前仓库的常态，如果不把角色边界和默认任务路由写清，未来 agent 很容易重复评审、错配职责或把外部建议误当成已接受决策。
+
+## Web GPT And Tabbit Dual-Usability Positioning
+
+Tags: product, workflow, usability, gpt, tabbit
+
+- 当前项目的基本定位，是在 AI 浏览器新架构下开发一个 bridge 中枢，使用户能低成本调用网页端高性能 AI。
+- 当前网页端 AI 的主要适配目标是 GPT。
+- Tabbit agent 在这个架构里不是可忽略的执行器，而是中介与副手，负责帮助连接本地上下文、页面交互与受控执行流程。
+- 默认实现应同时考虑网页端 GPT 与 Tabbit agent 的需求和易用性，不能只优化其中一端。
+
+Why it matters:
+如果未来实现只围绕单一端点优化，要么会让网页端 GPT 的评审/推理收益下降，要么会让 Tabbit agent 的操作链路变脆，都会偏离当前项目的核心产品目标。

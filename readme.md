@@ -1,12 +1,13 @@
 # Tabbit Bridge Skill Dev Repo
 
-这个仓库用于开发面向 Tabbit AI 浏览器的 bridge skill，目标是让 Tabbit 在用户显式授权后，把本地仓库上下文安全地桥接到 Web 端 AI 页面，用于评审、补充读取、补丁提议与后续受控执行。
+这个仓库用于开发面向 Tabbit AI 浏览器的 bridge skill。它的产品目标不是单纯做一个自动化脚本，而是在 AI 浏览器新架构下开发一个 bridge 中枢，使用户能够以更低成本充分调用网页端高性能 AI；在当前阶段，主要网页端适配目标是 GPT，而 Tabbit agent 则承担中介与副手角色，帮助把本地上下文、页面交互和受控执行连接起来。
 
 ## 当前定位
 
 - 当前优先级是先把 `M1 Repo Review Bridge` 做扎实。
 - 架构默认基于 `E2B sandbox + mounted local folder + browser page automation`。
 - 不把 `Native Messaging`、本机 `HTTP server`、用户机器 `PowerShell/cmd` 当成默认前提。
+- 当前实现与 workflow 需要同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性，而不是只优化其中一端。
 
 ## 正式入口
 

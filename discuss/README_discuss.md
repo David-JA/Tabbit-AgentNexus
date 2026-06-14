@@ -12,6 +12,7 @@
 | 2026-06-14 | M1 scaffold in progress | implementation | M1 Repo Review Bridge implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | runtime contract settled; sandbox-side testable core in progress |
 | 2026-06-15 | Completed | workflow | 新增 bridge repo context packager skill | [2026-06-15_bridge-repo-context-packager-skill.md](2026-06-15_bridge-repo-context-packager-skill.md) | add a bridge-specific repo context packaging skill and script |
 | 2026-06-15 | Completed | workflow | Bridge multi-role collaboration workflow | [2026-06-15_bridge-multi-role-collaboration-workflow.md](2026-06-15_bridge-multi-role-collaboration-workflow.md) | settled the 4-role collaboration model, task routing, and handoff rules |
+| 2026-06-15 | Completed | workflow | Bridge positioning sync for web GPT and Tabbit usability | [2026-06-15_bridge-positioning-sync-web-gpt-tabbit-usability.md](2026-06-15_bridge-positioning-sync-web-gpt-tabbit-usability.md) | synced the core product positioning and dual-usability requirement into formal docs |
 <!-- DISCUSS_SPEC_INDEX:END -->
 
 ## 放置规则

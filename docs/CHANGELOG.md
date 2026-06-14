@@ -19,3 +19,4 @@
 - 落地首批可测试的 sandbox-side 核心：`config/default_policy.review_only.json`、`discover_repo.py`、`git_probe.py`、`policy.py`、`redact.py`、`context_packager.py`、`audit_log.py`。
 - 新增对应 fixtures 与单元测试骨架，用于验证路径策略、secret redaction、context packaging、git graceful degradation 与 audit 落盘。
 - 新增 4 角色协作 workflow：明确用户、网页 GPT、Tabbit agent、仓库代码 agent 的职责边界、默认任务路由和交接规则。
+- 同步项目基本定位：明确该仓库是在 AI 浏览器新架构下，为用户低成本调用网页端高性能 AI 而开发 bridge 中枢；当前主要网页端适配目标是 GPT，并要求实现同时考虑网页端 GPT 与 Tabbit agent 的需求和易用性。
