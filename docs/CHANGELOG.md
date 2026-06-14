@@ -11,3 +11,4 @@
 - 补充仓库级 `.gitignore`，忽略常见 Python 缓存与噪声文件。
 - 新增 `docs/architecture/tabbit_browser_agent_behavior_boundary.md`，沉淀 Tabbit 浏览器 agent 的能力矩阵、操作纪律、路径语义与已知限制。
 - 补充 Git 提交相关的 accepted 运维经验：明确 `safe.directory` 归因、提交前 Git 身份检查，并新增一份 `docs/reports/` 报告沉淀完整诊断过程。
+- 新增 `bridge-repo-context-packager` skill 与 `package_bridge_repo_context.py`，用于把当前 bridge 仓库打成面向外部 AI 的理解包 zip。

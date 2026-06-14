@@ -45,6 +45,19 @@
 - 某项结论已经被接受，需要分流到 `AGENTS.md`、`docs/PROJECT_MEMORY.md`、`docs/CHANGELOG.md`
 - 需要判断某段信息该留在 `discuss/` 还是沉淀成正式入口
 
+### 4. Bridge Repo Context Packager
+
+入口：
+
+- `../../.agent/skills/bridge-repo-context-packager/`
+- `../../scripts/tools/package_bridge_repo_context.py`
+
+适用场景：
+
+- 为外部 AI / 网页 AI 生成 bridge 仓库理解包
+- 做 handoff zip、repo overview bundle、外部评审上下文包
+- 需要把正式入口、当前 spec、repo-local skills 和维护脚手架一起导出
+
 ## 设计原则
 
 - workflow 文档只描述稳定做法，不承接一次性任务细节。

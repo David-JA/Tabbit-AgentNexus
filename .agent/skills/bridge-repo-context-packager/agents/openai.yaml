@@ -1,0 +1,7 @@
+interface:
+  display_name: "Bridge Context Pack"
+  short_description: "把当前 bridge 仓库打成外部 AI 可读的 zip context pack"
+  default_prompt: "Use $bridge-repo-context-packager to package the current bridge repo into an AI-readable context zip before external review or handoff."
+
+policy:
+  allow_implicit_invocation: true
