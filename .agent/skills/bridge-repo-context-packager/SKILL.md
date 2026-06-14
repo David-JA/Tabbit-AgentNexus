@@ -13,7 +13,7 @@ compatibility: 需要能读取当前仓库中的正式入口、`.agent/skills/` 
 这个包不是全量备份，而是：
 
 - 保留仓库正式入口与实现上下文
-- 优先包含架构、workflow、当前实现 spec、repo-local skills、关键维护脚本
+- 优先包含架构、workflow、当前实现 spec、repo-local skills、关键运行脚本、配置和测试夹具
 - 默认排除 `.git/`、`reference/`、`exports/` 和缓存噪声
 
 ## 何时使用
@@ -79,16 +79,18 @@ python scripts/tools/package_bridge_repo_context.py --profile overview --git-com
 
 ## 默认打包重点
 
-相较于参考仓库中的通用科研包，本 skill 更偏向当前 bridge 仓库的“正式入口 + 当前收敛 spec + repo-local workflow”：
+相较于参考仓库中的通用科研包，本 skill 更偏向当前 bridge 仓库的“正式入口 + 当前收敛 spec + repo-local workflow + 可评审实现核心”：
 
 - `readme.md`
 - `AGENTS.md`
+- `config/`
 - `docs/architecture/`
 - `docs/workflows/`
 - `docs/reports/`
 - 当前 `discuss/` 材料
 - `.agent/skills/`
-- `scripts/tools/`
+- `scripts/`
+- `tests/`
 
 ## 输出要求
 

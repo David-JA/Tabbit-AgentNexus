@@ -49,15 +49,17 @@ PROFILES = {
     ),
     "overview": Profile(
         name="overview",
-        description="正式入口、reports、当前 discuss 材料、repo-local skills 和维护脚手架的完整理解包。",
+        description="面向网页 AI 评审的完整理解包，默认包含正式入口、当前 discuss、repo-local skills、运行脚本、配置与测试夹具。",
         include=(
             "readme.md",
             "AGENTS.md",
             ".gitignore",
+            "config",
             "docs",
             "discuss",
             ".agent/skills",
-            "scripts/tools",
+            "scripts",
+            "tests",
         ),
     ),
 }
@@ -194,6 +196,7 @@ def build_context_readme(profile: Profile, files: list[Path], git_status: str) -
         "6. `docs/architecture/bridge_runtime_architecture.md`",
         "7. `docs/architecture/tabbit_browser_agent_behavior_boundary.md`",
         "8. `docs/workflows/README_workflows.md`",
+        "9. `config/` + `scripts/` + `tests/`",
         "",
         "## Included File Preview",
         "",

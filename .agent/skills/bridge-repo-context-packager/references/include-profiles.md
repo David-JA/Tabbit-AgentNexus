@@ -36,18 +36,20 @@
 适合：
 
 - 用户要把当前 bridge 仓库完整交给外部 AI 快速理解
-- 需要正式入口、reports、当前 discuss 和维护脚手架
-- 需要看到 repo-local skills 的完整结构
+- 需要正式入口、reports、当前 discuss、repo-local skills、运行脚本、配置和测试夹具
+- 需要让网页 AI 直接评审实现、测试与文档的一致性
 
 包含：
 
 - `readme.md`
 - `AGENTS.md`
 - `.gitignore`
+- `config/`
 - `docs/`
 - `discuss/`
 - `.agent/skills/`
-- `scripts/tools/`
+- `scripts/`
+- `tests/`
 
 仍默认排除：
 
