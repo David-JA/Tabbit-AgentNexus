@@ -7,4 +7,5 @@ Thumbs.db
 
 *.log
 *.tmp/
+.tmp-artifacts/
 exports/repo-context/
