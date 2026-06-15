@@ -15,9 +15,9 @@
 结论是：
 
 - 当前环境已经证实 `URL restore` 可用，但这不等于“旧标签页切换能力已证成”
-- 当前环境已经证实“对自己刚创建且拿到真实 ID 的标签页”可以做 `select_page`
-- 当前环境尚未证实“可枚举全部标签页”或“可切回任意既有旧标签页”
-- 因此，`browser workspace` 的核心限制不是“完全不能管标签页”，而是“只能有限管理自己已知 ID 的标签页，无法对整个工作区做完整寻址”
+- 当前环境已经证实“对本轮或当前会话内已获得真实 ID 的标签页”可以做 `select_page`
+- 当前环境尚未证实“可枚举全部标签页”或“可切回任意未掌握真实 ID 的旧标签页”
+- 因此，`browser workspace` 的核心限制不是“完全不能管标签页”，而是“只能有限管理本轮或当前会话内已掌握真实 ID 的标签页，无法对整个工作区做完整寻址”
 
 ## 2. 当前接受的边界结论
 
@@ -25,7 +25,7 @@
 
 - 可以读取当前活动页的 `title`、`URL` 和可见内容。
 - 可以创建新标签页，并拿到工具返回的真实 `tabId/page_id`。
-- 可以对“本轮创建且已缓存真实 ID”的标签页执行 `select_page`。
+- 可以对“本轮或当前会话内已缓存真实 ID”的标签页执行 `select_page`。
 - 可以通过完整 ChatGPT 会话 URL 恢复到同一会话页。
 
 ### 2.2 尚未证成或明确不支持的能力
@@ -96,7 +96,7 @@
 
 1. 缺少可枚举全部标签页的接口
 2. 因而无法获取“进入测试前已存在旧标签页”的真实 ID
-3. `select_page` 只能可靠作用于“自己创建过且缓存了 ID 的标签页”
+3. `select_page` 只能可靠作用于“本轮或当前会话内已获得并缓存了真实 ID 的标签页”
 4. 一旦要返回到先前已有的 ChatGPT 会话页，就只能依赖 `navigate_page(original_url)` 作为 fallback
 
 这意味着当前 `browser workspace` 更接近一种：
@@ -120,14 +120,14 @@
 建议将当前正式边界收口为下面这句：
 
 ```text
-Boundary: Tabbit agent currently cannot enumerate tabs, can create tabs, partially can switch to an existing tab by returned ID, and cannot return to an old ChatGPT session tab without URL navigation.
+Boundary: Tabbit agent currently cannot enumerate tabs, can create tabs, partially can switch to tabs whose real IDs were obtained in the current run or session, and cannot return to an old ChatGPT session tab without URL navigation.
 ```
 
 对应中文解释：
 
 - 不能枚举全部标签页
 - 能创建标签页
-- 只能部分地切换到既有标签页：前提是该页的真实 ID 已在创建时被拿到
+- 只能部分地切换到本轮或当前会话内已获得真实 ID 的标签页
 - 不能在“不依赖 URL 导航”的前提下回到旧的 ChatGPT 会话标签页
 
 应同时保留一句补充说明：
