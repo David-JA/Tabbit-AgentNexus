@@ -1,8 +1,105 @@
-用户->gpt：
+# 20260615 Tabbit Skill Architecture Probe Transcript
+
+> Status: accepted transcript record
+> Type: four-role / two-space architecture probe with structural annotations
+> Purpose: 在正式报告和后续 spec 收敛前，保留完整交互过程、纠偏路径与多角色路由语义
+
+## 1. 阅读说明
+
+- 本文件保留原始发言顺序，并尽量不改写原文内容。
+- Git 历史中保留了更接近最初抄录形态的版本；当前文件已去掉手写箭头标签，角色、接收方与传输方式以每个 Turn 的元数据表为准。
+- 为便于后续 agent 解析，本次补充 `Turn` 级元数据，而不是把原始消息压缩成摘要。
+- 若某一轮原始消息内部再次出现 `#`、`##` 等标题，它们属于该轮消息正文，不表示仓库文档层级切换。
+- 本文件是“交互记录”，不是最终架构真值；正式真值仍以 `readme.md`、`docs/architecture/nexus_runtime_architecture.md` 和后续正式报告为准。
+
+## 2. 角色与空间图例
+
+### 2.1 角色
+
+| Role | 中文角色 | 在本记录中的作用 |
+|---|---|---|
+| `user` | 用户 | 定义目标、纠正误判、承担最终验收与中转协调 |
+| `web-gpt` | 网页 GPT | 提供外部 review、架构建议、测试设计与验收反馈 |
+| `tabbit-agent` | Tabbit agent | 在 Tabbit 任务环境中执行 probe、提供运行时证据和使用侧反馈 |
+| `repo-agent` | 仓库代码 agent | 本次未直接参与对话，但负责后续把交互沉淀为仓库文档、报告和实现输入 |
+
+### 2.2 空间
+
+| Space | 含义 |
+|---|---|
+| `local-repo-discussion` | 本地代码仓库侧的讨论、归档和文档整理空间 |
+| `tabbit-sandbox` | Tabbit 浏览器任务 agent 的运行 / 验证空间，可独立存在，也可通过 `/mnt` 挂载本地目录 |
+| `cross-space-handoff` | 两个空间之间的交接、转述、验证反馈或纠偏过程 |
+
+## 3. Turn 字段约定
+
+| Field | 含义 |
+|---|---|
+| `Speaker` | 当前发言主体 |
+| `Receiver` | 本轮消息的目标对象；若存在多跳转发，则保留链路 |
+| `Relay` | 消息传递方式，使用 `direct`、`user-relay`、`browser-mediated`、`direct-cross-space`、`mixed` 这几个固定值 |
+| `Space` | 本轮消息主要发生或指向的空间 |
+| `Intent` | 本轮消息在整体协作中的主要作用 |
+
+### 3.1 Relay 类型说明
+
+| Relay | 含义 |
+|---|---|
+| `direct` | 用户与当前 agent 的直接对话 |
+| `user-relay` | 用户手动复制、粘贴或转述另一方消息 |
+| `browser-mediated` | Tabbit agent 通过浏览器工具读取、滚动、截图/快照、输入、点击发送，从而与 web-gpt 进行跨空间交互 |
+| `direct-cross-space` | 语义上跨空间直接面向另一 agent，但应优先用更具体的 `browser-mediated` 或 `user-relay` 表示实际传输方式 |
+| `mixed` | 同一轮中同时包含自动浏览器交互与用户手动中介 |
+
+### 3.2 关键说明
+
+T02-T04 阶段不是用户手动中介，而是 Tabbit agent 使用 AI 浏览器工具链完成跨空间交互。用户从 T05 开始显式介入，主要原因是该自动化链路当时尚未形成稳定、快速、低误判的流程规范。
+
+## 4. 回合索引
+
+| Turn | Speaker | Receiver | Relay | Space | Intent |
+|---|---|---|---|---|---|
+| `T01` | `user` | `web-gpt` | `direct` | `local-repo-discussion` | 提出 Tabbit skill 架构探针需求 |
+| `T02` | `web-gpt` | `tabbit-agent` | `browser-mediated` | `cross-space-handoff` | 给出第一版探针任务书，Tabbit agent 通过浏览器工具读取 web-gpt 输出 |
+| `T03` | `tabbit-agent` | `web-gpt` | `browser-mediated` | `cross-space-handoff` | Tabbit agent 通过浏览器输入与发送功能纠正初始误判，并暴露 Agent 侧真实 bundle 模型 |
+| `T04` | `web-gpt` | `tabbit-agent` | `browser-mediated` | `cross-space-handoff` | web-gpt 改写测试设计，Tabbit agent 通过浏览器工具获取并继续执行 |
+| `T05` | `user` | `tabbit-agent` | `direct` | `cross-space-handoff` | 用户因自动跨空间交互流程尚不稳定而介入，开始承担中介与纠偏职责 |
+| `T06` | `tabbit-agent` | `user -> web-gpt` | `user-relay` | `cross-space-handoff` | 汇报端到端 probe 完成情况 |
+| `T07` | `web-gpt` | `user -> tabbit-agent` | `user-relay` | `cross-space-handoff` | 做阶段验收并要求补最后一轮边界验证 |
+| `T08` | `tabbit-agent` | `user -> web-gpt` | `user-relay` | `cross-space-handoff` | 提交最终边界探针报告 |
+| `T09` | `web-gpt` | `user` | `direct` | `local-repo-discussion` | 基于报告给出验收与下一步建议，但过早推进到正式设计 |
+| `T10` | `user` | `web-gpt` | `direct` | `local-repo-discussion` | 用四角色两空间模型纠偏推进顺序 |
+| `T11` | `web-gpt` | `user` | `direct` | `local-repo-discussion` | 认可纠偏，并建议先保存 transcript 再整理正式报告 |
+
+## 5. 结构化转写记录
+
+### Turn T01
+
+| Field | Value |
+|---|---|
+| `Speaker` | `user` |
+| `Receiver` | `web-gpt` |
+| `Relay` | `direct` |
+| `Space` | `local-repo-discussion` |
+| `Intent` | 提出对 Tabbit 浏览器 skill 架构的探针需求，并要求后续持续交互直到获得确切架构判断 |
+
+#### 消息正文
+
 tabbit中的妙招就是skill，其在浏览器内部是这样的结构形式，所以虽然任务agent可以在沙箱执行Python脚本，但是我并不能确定浏览器维护的skill模式是否是兼容脚本的格式，所以请你根据截图以及我的描述，给出一个让tabbit 任务agent 检查tabbit浏览器skill架构的指令，在接下来，除了我，你将和它直接交流，直到了解一个确切的架构情况
 
 
-gpt->用户->tabbit:
+### Turn T02
+
+| Field | Value |
+|---|---|
+| `Speaker` | `web-gpt` |
+| `Receiver` | `tabbit-agent` |
+| `Relay` | `browser-mediated` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 生成第一版测试任务书，Tabbit agent 通过浏览器工具读取并据此启动对 skill 体系的分阶段探查 |
+
+#### 消息正文
+
 可以。你可以把下面整段直接粘给 **Tabbit 任务 Agent**。它的目标不是立刻开发 AgentNexus skill，而是先把 Tabbit 浏览器内置“妙招 / skill”的真实架构摸清楚，尤其确认它和仓库内脚本型 skill 是否兼容。
 
 ````markdown
@@ -486,7 +583,17 @@ print("TEMP_SKILL_PROBE_PYTHON_OK")
 我的建议是：第一轮只让它做 **Phase 1 + Phase 2**，先不要急着测试脚本注入。因为真正关键的分叉点是：Tabbit 的“上传 skill”是否存在可移植文件格式。如果它本质上只是 UI 内部的 prompt/task/script 注册表，那 AgentNexus 就应该做成“Tabbit 前端入口 + 仓库内标准 skill”的混合架构，而不是强行把 Python 脚本塞进浏览器 skill。
 ```
 
-tabbit - > gpt:
+### Turn T03
+
+| Field | Value |
+|---|---|
+| `Speaker` | `tabbit-agent` |
+| `Receiver` | `web-gpt` |
+| `Relay` | `browser-mediated` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 通过浏览器输入与发送能力纠正“通过 UI 观察架构”的前提误判，并给出 Agent 侧 skill bundle 的首轮真实发现 |
+
+#### 消息正文
 
 ## Phase 1 Report — UI与架构侦查（含关键纠正）
 
@@ -605,7 +712,18 @@ skill-bundle/
 
 请给出下一轮追问或修正测试设计。
 
-gpt->tabbit:
+### Turn T04
+
+| Field | Value |
+|---|---|
+| `Speaker` | `web-gpt` |
+| `Receiver` | `tabbit-agent` |
+| `Relay` | `browser-mediated` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 根据 Tabbit agent 的纠偏结果改写 Phase 2/3 测试目标，随后由 Tabbit agent 通过浏览器工具获取并继续执行 |
+
+#### 消息正文
+
 这轮报告已经把方向校正了：现在应把 Tabbit skill 分成 **Agent 侧 bundle contract** 和 **用户侧妙招 UI facade** 两个面来验。下一轮重点不是再看截图 UI，而是要求它给出可复现证据，并跑一个最小端到端 probe。
 
 你可以把下面这段直接发给 Tabbit 任务 Agent。
@@ -1121,11 +1239,31 @@ Evidence:
 不要跳过失败项。失败项比成功项更重要。所有结论必须标注 confirmed / inferred / unknown。
 
 
-用户->tabbit：
+### Turn T05
+
+| Field | Value |
+|---|---|
+| `Speaker` | `user` |
+| `Receiver` | `tabbit-agent` |
+| `Relay` | `direct` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 因自动跨空间交互流程尚不稳定而显式介入，开始承担消息中介与执行纠偏职责 |
+
+#### 消息正文
 
 由于技能还未开发完毕，现在让你们两个agent直接完成交互还比较困难，容易出意外情况，现在由我作为中介帮你们传递信息，并及时纠正你们二者执行任务时误判等，请你根据你完成的工作，继续任务
 
-tabbit->用户->gpt:
+### Turn T06
+
+| Field | Value |
+|---|---|
+| `Speaker` | `tabbit-agent` |
+| `Receiver` | `user -> web-gpt` |
+| `Relay` | `user-relay` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 提交端到端验证完成报告，给出可复现证据、纠错清单和阶段性架构判断 |
+
+#### 消息正文
 
 # Tabbit Agent Skill 架构 — 端到端验证完成报告
 
@@ -1251,7 +1389,17 @@ tabbit->用户->gpt:
 
 请将以上报告内容传递给GPT。等待其反馈后，我可以根据新的测试设计继续执行下一阶段验证（如url_patterns触发实测、skill更新版本测试、权限边界测试等）。
 
-gpt->用户->tabbit:
+### Turn T07
+
+| Field | Value |
+|---|---|
+| `Speaker` | `web-gpt` |
+| `Receiver` | `user -> tabbit-agent` |
+| `Relay` | `user-relay` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 对端到端结果做阶段验收，并要求补充最后一组关键边界测试以收口不确定项 |
+
+#### 消息正文
 
 我接受这份端到端报告的核心结论：**Tabbit Agent 侧 skill 架构已经足够支持 AgentNexus 的第一版落地**。关键事实是：它不是单纯 prompt，也不是 UI 里的三类型小功能，而是可打包、可上传、可加载、可执行浏览器 JS 与 E2B Python 的统一 bundle。
 
@@ -1581,7 +1729,17 @@ Tabbit personal skill / shared skill
 
 我的当前工程判断是：**AgentNexus 可以进入正式设计阶段**，但不要急着写复杂能力。第一版应只做三个核心闭环：网页上下文捕获、双 Agent handoff 协议、Tabbit bundle 打包/上传流程。Python 脚本能力先用于轻量转换和报告生成，不要假设它能直接操作用户本地仓库。
 
-tabbit->用户->gpt:
+### Turn T08
+
+| Field | Value |
+|---|---|
+| `Speaker` | `tabbit-agent` |
+| `Receiver` | `user -> web-gpt` |
+| `Relay` | `user-relay` |
+| `Space` | `cross-space-handoff` |
+| `Intent` | 交付最终边界探针报告，补齐 `url_patterns`、`allowed_tools`、更新语义和删除清理等边界说明 |
+
+#### 消息正文
 
 # Final Boundary Probe Report — Tabbit Skill Runtime
 
@@ -1828,7 +1986,17 @@ tabbit-agentnexus-skill/
 - 否则，AgentNexus 可以基于当前验证结果进入正式 skill 设计阶段，按最小文件结构开始构建
 - 如需将本报告保存为文档，我也可以整理成 docx/pdf 格式供后续参考
 
-gpt->用户：
+### Turn T09
+
+| Field | Value |
+|---|---|
+| `Speaker` | `web-gpt` |
+| `Receiver` | `user` |
+| `Relay` | `direct` |
+| `Space` | `local-repo-discussion` |
+| `Intent` | 给出验收意见与下一步建议，但推进顺序过早跳到了正式设计，尚未先沉淀完整交互过程 |
+
+#### 消息正文
 
 我已看完这份最终边界报告。结论很明确：**Tabbit Agent Skill 架构探索可以收口，AgentNexus 可以进入正式 skill 设计阶段。**
 
@@ -2022,7 +2190,18 @@ AgentNexus v0 Tabbit Skill Design
 
 不要继续扩展功能，不要做大文件测试，不要测试用户 UI 的 zip/md 上传。当前阶段的重点是把 AgentNexus v0 skill 设计稳定下来。
 
-用户->gpt:
+### Turn T10
+
+| Field | Value |
+|---|---|
+| `Speaker` | `user` |
+| `Receiver` | `web-gpt` |
+| `Relay` | `direct` |
+| `Space` | `local-repo-discussion` |
+| `Intent` | 用四角色、两空间协作模型纠正推进顺序，要求先保存完整 transcript，再转正式报告与执行 |
+
+#### 消息正文
+
 
 你理解错了，当前是四个角色在两个空间共同推进项目，具体可看docs/workflows/multi_role_collaboration.md
 “## 默认路由原则 
@@ -2033,7 +2212,18 @@ AgentNexus v0 Tabbit Skill Design
 - Tabbit 可用性验证、使用侧反馈：Tabbit agent 主责” 两个空间是本地代码仓库和tabbit浏览器任务agent的沙箱空间，在指定了本地文件夹的情况下，沙箱空间会通过mnt指向本地文件夹使得可以操作本地文件，但是也可以不指定本地文件夹，tabbit agent在任务模式下仍可有自己的sandbox
 所以我认为需要先记录这次交互的完整过程，然后在总结整理成报告，之后才是正式执行，正式执行也需要区分仓库agent和浏览器agent二者谁负责什么任务，你认可我的判断吗？认可的话我就先把你们的对话保存为md了
 
-gpt:
+### Turn T11
+
+| Field | Value |
+|---|---|
+| `Speaker` | `web-gpt` |
+| `Receiver` | `user` |
+| `Relay` | `direct` |
+| `Space` | `local-repo-discussion` |
+| `Intent` | 接受纠偏，确认应先沉淀完整交互记录，并给出适合后续仓库整理的原始 md 结构建议 |
+
+#### 消息正文
+
 认可，而且你的判断更准确。现在不应该直接进入正式实现，而应先做两件前置工作：
 
 1. **保存完整交互记录**：这是一次架构取证过程，里面包含误判、纠正、验证、边界收口，不能只保留最终结论。
