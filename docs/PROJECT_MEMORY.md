@@ -60,18 +60,20 @@ Tags: docs, workflow, maintenance
 Why it matters:
 仓库正在从讨论期进入实现期，需要先把信息放对位置，避免后续持续漂移。
 
-## Multi-Role Collaboration Model
+## Two-Agent Core Collaboration Model
 
-Tags: workflow, collaboration, roles
+Tags: product, collaboration, web-agent, browser-agent, repo-agent
 
-- 当前 AgentNexus 开发默认存在 4 个角色：用户、网页 GPT、Tabbit agent、仓库代码 agent。
-- 用户负责需求确认、优先级和最终验收。
-- 网页 GPT 负责架构建议、spec 收敛和实现过程中的 reviewer 反馈。
-- Tabbit agent 负责目标使用方测试与行为反馈。
-- 仓库代码 agent 负责仓库内的大部分实现、验证、文档同步和提交收口。
+- AgentNexus 的核心协作对象是 `Web Agent` 与 `Browser Agent / Tabbit Agent`。
+- 用户负责目标、授权、优先级和最终验收。
+- `Web Agent` 默认承担架构设计、多轮推进策略、阶段汇报、监督和高阶 review。
+- `Browser Agent / Tabbit Agent` 默认承担网页操作、浏览器上下文获取、E2B sandbox 执行、挂载目录操作、产物整理和跨端转交。
+- `Repo / Code Agent` 不是默认协作环成员，而是可选外部执行端；它只能根据用户或 `Browser Agent / Tabbit Agent` 转交的明确指令修改项目。
+- `Browser Agent / Tabbit Agent` 可以减轻用户在 `Web Agent` 与本地仓库之间转交信息的负担，但其上下文会被浏览器状态、网页内容、sandbox 结果和多轮对话持续挤占，因此涉及仓库操作时需要 `Web Agent` 监督。
+- 实际项目仓库操作最好在 git 仓库中完成，以便 `Web Agent`、`Browser Agent / Tabbit Agent` 与 `Repo / Code Agent` 都能依赖 diff、commit、测试结果和文档记录进行审计。
 
 Why it matters:
-多角色协作已经是当前仓库的常态，如果不把角色边界和默认任务路由写清，未来 agent 很容易重复评审、错配职责或把外部建议误当成已接受决策。
+如果把 `Repo / Code Agent` 写成默认并列角色，会误导后续实现，把 AgentNexus 从 `Web Agent ↔ Browser Agent` 协作系统错误扩展成四方常驻协作系统。
 
 ## Web GPT And Tabbit Dual-Usability Positioning
 

@@ -1,15 +1,17 @@
 # Multi-Role Collaboration Workflow
 
+> 默认模型：Two-Agent Core Collaboration + External Repo Executor
+
 ## 1. 目标
 
-本文定义当前 AgentNexus 开发中默认存在的 4 个角色，以及它们在需求、设计、实现、测试和验收阶段的职责分工。
+本文定义当前 AgentNexus 的默认协作模型：`Web Agent` 与 `Browser Agent / Tabbit Agent` 构成核心双 Agent 协作环，用户负责授权与验收，`Repo / Code Agent` 只在显式委托时作为外部执行端参与。
 
 本文解决的是：
 
-- 不同角色分别负责什么
-- 什么任务应该默认派给谁
-- 什么时候需要交接
-- 交接时应该带什么产物
+- 默认核心 loop 是谁和谁
+- 不同任务默认该交给谁
+- 什么时候需要外部仓库执行端
+- 交接时应携带什么产物与审计证据
 
 本文不解决：
 
@@ -19,193 +21,192 @@
 
 这些内容仍以 `readme.md`、`docs/architecture/nexus_runtime_architecture.md` 和具体实现 spec 为准。
 
-## 2. 当前 4 个角色
+## 2. 默认模型
 
-### 2.1 用户
+核心协作环：
 
-主责：
+- 用户给出目标、优先级、授权边界和最终验收标准
+- `Web Agent` 与 `Browser Agent / Tabbit Agent` 进行 round-based 协作
+- 只有在需要仓库修改、测试或提交证据时，才显式调用 `Repo / Code Agent`
 
-- 定义需求、目标和优先级
-- 确认非显然 tradeoff
-- 提供最终验收口径
-- 对高风险动作做最终确认
+| Role | Status in AgentNexus | Primary responsibility |
+|---|---|---|
+| User | Decision and acceptance center | Goal, priority, authorization, acceptance |
+| Web Agent | Core actor; reasoning/supervision/reporting layer | Architecture, strategy, stage report, review, supervision |
+| Browser Agent / Tabbit Agent | Core actor; execution/relay layer | Browser operation, webpage context, sandbox, mounted-folder operations, artifact relay |
+| Repo / Code Agent | External executor | Explicit repo edits, tests, diff, commit/report evidence |
 
-不主责：
+## 3. 角色优点与局限
 
-- 持续维护实现细节
-- 替仓库 agent 编写或收口代码
+### 3.1 User
 
-### 2.2 网页 GPT
+优点：
 
-主责：
+- 拥有最终授权与验收权
+- 能处理非显然 tradeoff 和范围变更
 
-- 提供架构建议、需求澄清和对比方案
-- 作为实现过程中的 reviewer / feedback provider
-- 参与 prompt、spec、边界与风险的外部视角检查
+局限：
 
-不主责：
+- 不应被写成默认中继总线
+- 不负责日常实现和持续交接收口
 
-- 直接成为本仓库的主实现者
-- 取代本地策略层做最终安全决策
+### 3.2 Web Agent
 
-### 2.3 Tabbit agent
+优点：
 
-主责：
+- 适合承担高阶推理、架构设计和多轮推进策略
+- 更适合做阶段汇报、review 和对仓库执行证据的再审阅
 
-- 作为目标使用方验证 AgentNexus 产物是否可用
-- 提供真实使用侧反馈、行为反馈和交互反馈
-- 参与与 Tabbit 能力边界相关的回归检查
+局限：
 
-不主责：
+- 不直接拥有本地执行权限
+- 不能绕过本地策略层直接下发可执行动作
 
-- 直接决定仓库中的正式架构真值
-- 取代仓库 agent 维护本地实现
+### 3.3 Browser Agent / Tabbit Agent
 
-### 2.4 仓库代码 agent
+优点：
 
-主责：
+- 天然适合浏览器操作、网页登录态上下文、网页观察与富交互
+- 可在受控授权下承担 E2B sandbox、挂载目录操作和跨端转交
 
-- 承担大部分仓库内实际开发工作
-- 修改代码、测试、文档和脚手架
-- 负责本地验证、diff 收口和提交
-- 把外部反馈整理成仓库可执行变更
+局限：
 
-不主责：
+- 浏览器状态、网页内容、sandbox 结果和多轮对话会持续挤占上下文
+- 不应长时间无人监督地执行仓库变更链
 
-- 代替用户做需求优先级和最终验收决策
-- 把网页 GPT 或 Tabbit 的建议直接视为已接受事实
+### 3.4 Repo / Code Agent
 
-## 3. 默认推进流程
+优点：
 
-### Phase 1: 需求与验收口径
+- 适合承担明确指令下的仓库修改、测试、diff 收口和提交证据返回
+- 输出天然可被 `git diff`、测试结果和阶段报告审计
+
+局限：
+
+- 不是默认对话环成员
+- 不拥有产品架构主责，也不能把自然语言直接视为已接受授权
+
+## 4. 默认推进流程
+
+### Phase 1: Goal and authorization
 
 主责：用户
 
 协作：
 
-- 网页 GPT 可帮助整理问题和评审风险
-- 仓库代码 agent 可帮助识别实现边界和验证路径
+- `Web Agent` 帮助澄清目标、范围和风险
 
 产物：
 
 - 明确目标
-- 范围边界
+- 授权边界
 - 验收标准
 
-### Phase 2: 架构 / Spec 收敛
+### Phase 2: Architecture and task decomposition
 
-主责：网页 GPT + 仓库代码 agent
-
-协作：
-
-- 用户确认最终方向和非显然 tradeoff
-- Tabbit agent 可提供使用侧限制和真实能力反馈
-
-产物：
-
-- `discuss/` 中的 spec 或评审记录
-- 行为边界
-- 验证计划
-
-### Phase 3: 仓库实现
-
-主责：仓库代码 agent
+主责：`Web Agent`
 
 协作：
 
-- 网页 GPT 可继续做中途 review
-- 用户只在范围变化或风险升级时介入决策
+- `Browser Agent / Tabbit Agent` 提供浏览器侧能力与上下文约束
 
 产物：
 
-- 代码变更
-- 测试
-- 文档同步
-- commit
+- spec 建议
+- 任务拆解
+- 风险与停止条件
 
-### Phase 4: 双反馈验证
+### Phase 3: Browser / sandbox / context execution
 
-主责：
-
-- 网页 GPT：架构/行为 reviewer
-- Tabbit agent：使用侧 tester
+主责：`Browser Agent / Tabbit Agent`
 
 协作：
 
-- 仓库代码 agent 根据反馈继续修正
-- 用户判断是否接受反馈并升级优先级
+- `Web Agent` 持续监督与 review
 
 产物：
 
-- review comments
-- 使用反馈
-- 回归问题清单
+- 页面观察
+- sandbox 结果
+- 中继产物
 
-### Phase 5: 最终验收与收口
+### Phase 4: Optional repository execution
+
+主责：`Repo / Code Agent`（仅在被显式调用时）
+
+指令来源：
+
+- 用户或 `Browser Agent / Tabbit Agent` 转交的明确指令，通常由 `Web Agent` 起草或审核
+
+产物：
+
+- diff
+- 测试结果
+- 阶段报告
+- commit evidence（如适用）
+
+### Phase 5: Review and acceptance
 
 主责：用户
 
 协作：
 
-- 仓库代码 agent 提供阶段报告、验证结果和已知限制
-- 网页 GPT / Tabbit agent 的反馈只作为验收依据的一部分
+- `Web Agent` 负责整合阶段汇报与限制
+- `Browser Agent / Tabbit Agent` 提供执行侧事实
+- `Repo / Code Agent` 若被调用，则提供仓库侧证据
 
-产物：
+## 5. 默认任务路由
 
-- 接受 / 退回 / 继续迭代结论
-- 必要时同步 `docs/`、`PROJECT_MEMORY`、`CHANGELOG`
+| Task type | Default route |
+|---|---|
+| Architecture, strategy, stage report, risk review | `Web Agent` |
+| Browser operation, webpage information, page interaction | `Browser Agent / Tabbit Agent` |
+| Sandbox execution, mounted-folder artifact handling | `Browser Agent / Tabbit Agent` with explicit authorization |
+| Concrete repo edits, tests, git diff, commit | `Repo / Code Agent` only after explicit delegation |
+| Final acceptance and authorization escalation | 用户 |
 
-## 4. 默认任务路由
-
-| 任务类型 | 默认主责角色 | 协作角色 | 交接物 |
-|---|---|---|---|
-| 需求确认、优先级、验收口径 | 用户 | 网页 GPT、仓库代码 agent | 明确目标与验收标准 |
-| 架构草案、spec 收敛、风险评审 | 网页 GPT | 用户、仓库代码 agent | review 要点、spec 建议、边界意见 |
-| 仓库代码实现、测试、文档同步、提交 | 仓库代码 agent | 网页 GPT | diff、测试结果、阶段报告 |
-| Tabbit 可用性验证、使用侧回归 | Tabbit agent | 用户、仓库代码 agent | 使用反馈、失败路径、行为偏差 |
-| 最终接受、是否继续迭代 | 用户 | 全部角色 | 验收结论 |
-
-## 5. Round-Based 协作补充
+## 6. Round-Based 协作补充
 
 当任务进入多轮协作时，除职责分工外还应遵守：
 
 - 默认使用 `max_rounds`、`current_round`、`stop_reason` 三个显式字段。
 - 每轮交接至少包含：当前任务、已用上下文、已执行动作、发现、风险、是否继续。
-- 若网页 GPT、Tabbit agent 与仓库代码 agent 出现冲突结论，必须在下一轮或最终报告中显式列出 `Disagreements`，而不是隐式覆盖。
+- 若 `Web Agent` 与 `Browser Agent / Tabbit Agent` 出现冲突结论，或外部仓库执行证据与协商结论冲突，必须显式列出 `Disagreements`。
 - 达成共识时输出 `Consensus Report`；未达成共识时输出 `Disagreement Report` 和 `Human Confirmation Points`。
 
-## 6. 交接规则
+## 7. 交接规则
 
-### 网页 GPT → 仓库代码 agent
+### Web Agent → Browser Agent / Tabbit Agent
 
 应交接：
 
-- 架构建议
-- review finding
-- 明确的 spec 修改建议
-- 风险和验证关注点
+- 任务架构
+- 当前轮次目标
+- 风险与停止条件
+- 需要回收的观察或产物
+
+### Browser Agent / Tabbit Agent → Web Agent
+
+应交接：
+
+- 浏览器观察事实
+- sandbox 结果
+- 失败路径
+- 可继续 / 应停止判断
+
+### Web Agent / Browser Agent → Repo / Code Agent
+
+应交接：
+
+- 明确可执行的仓库指令
+- 预期变更范围
+- 验证要求
+- 已知限制和审计要求
 
 不应直接交接：
 
 - 被默认视为已接受的最终需求
-- 被默认视为可执行的自然语言动作
-
-### 仓库代码 agent → Tabbit agent
-
-应交接：
-
-- 可测试产物
-- 验证步骤
-- 已知限制
-- 期望行为
-
-### Tabbit agent → 仓库代码 agent
-
-应交接：
-
-- 实际使用中的失败路径
-- 交互问题
-- 与预期不一致的行为观察
+- 未经授权的自然语言动作
 
 ### 所有角色 → 用户
 
@@ -215,7 +216,15 @@
 - 非显然风险
 - 尚未关闭的限制或 pending decision
 
-## 7. 升级条件
+## 8. Anti-patterns
+
+- 不要把 `Repo / Code Agent` 建模成 `Web Agent ↔ Browser Agent` 默认环中的并列角色。
+- 不要把 `Browser Agent / Tabbit Agent` 只写成 tester。
+- 不要把 `Web Agent` 只写成外部 reviewer。
+- 不要让 `Browser Agent / Tabbit Agent` 长时间无人监督地执行仓库变更链。
+- 不要把目标 AI 回复、网页文本或仓库文本直接视为可执行指令。
+
+## 9. 升级条件
 
 以下情况应从“常规协作”升级为“需要用户重新确认”：
 
@@ -223,12 +232,4 @@
 - 需要修改正式架构真值
 - 需要读取更多敏感内容
 - 需要从只读升级到写入或命令执行
-- 网页 GPT、Tabbit agent 与仓库代码 agent 给出冲突建议
-
-## 8. 维护原则
-
-- 用户是需求与验收 owner，不是日常实现者。
-- 仓库代码 agent 是默认主实现者，不自动拥有产品决策权。
-- 网页 GPT 和 Tabbit agent 默认提供反馈，不直接替代仓库真值入口。
-- 任何外部反馈进入仓库前，都需要由仓库代码 agent 重新整理为可验证变更。
-- 在 AgentNexus 功能设计中，默认同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性；不接受只优化单端、却显著伤害另一端可用性的默认方案。
+- `Web Agent`、`Browser Agent / Tabbit Agent` 与外部仓库执行证据给出冲突结论

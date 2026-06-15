@@ -8,7 +8,7 @@
 
 这个仓库当前接受的产品定位是 `Tabbit AgentNexus`。
 
-它是一个面向 Tabbit AI 浏览器的多智能体协作 skill 开发仓库，用于以 Tabbit 浏览器 Agent 为协作中枢，连接：
+它是一个面向 Tabbit AI 浏览器的多智能体协作 skill 开发仓库，用于让网页端高性能 Agent 与 Tabbit 浏览器 Agent 构成核心协作环，并通过浏览器侧执行与中继能力连接：
 
 - 网页端高性能 Agent
 - 本地挂载工作区
@@ -26,7 +26,9 @@
 
 ## 2. Actor model
 
-### 2.1 User
+### 2.1 Core collaboration actors
+
+#### User
 
 负责：
 
@@ -34,29 +36,60 @@
 - 确认非显然 tradeoff
 - 对高风险动作做最终确认
 
-### 2.2 Tabbit Browser Agent
+边界：
+
+- 用户是决策与验收中心，不是默认通信总线。
+- 若 `Browser Agent / Tabbit Agent` 可以安全承担跨端转交，用户不应被写成日常 relay bus。
+
+#### Web Agent
 
 负责：
 
-- 浏览器页面导航、观察与交互
-- 把上下文安全送入网页端 Agent
-- 回收网页端结果、浏览器观察与产物状态
-- 在受控策略下触发后续动作
-
-### 2.3 Web High-Performance Agent
-
-负责：
-
-- 推理、评审、比较方案和生成阶段性总结
-- 参与多轮讨论、共识形成和分歧说明
-- 输出面向 Tabbit Agent 与本地代码 Agent 的下一步建议
+- 任务架构设计与多轮推进策略
+- 阶段汇报、review、监督与风险说明
+- 审阅 `Browser Agent / Tabbit Agent` 的观察结果与 `Repo / Code Agent` 的执行证据
+- 在需要仓库修改时起草或审核精确的外部执行指令
 
 不负责：
 
 - 直接拥有本地执行权限
 - 直接替代本地策略层做读取、写入或命令执行决策
 
-### 2.4 Local Workspace Adapter
+#### Browser Agent / Tabbit Agent
+
+负责：
+
+- 浏览器页面导航、观察与交互
+- 把上下文安全送入网页端 Agent
+- 回收网页端结果、浏览器观察与产物状态
+- 搜索、rich page interaction、E2B sandbox 执行和挂载目录操作
+- 在受控策略下承担跨空间转交与产物整理
+
+边界：
+
+- `Browser Agent / Tabbit Agent` 功能强，但上下文成本高。
+- 浏览器状态、网页快照、sandbox 日志和与 `Web Agent` 的多轮对话都会持续占用其上下文。
+- 不应让它长时间无人监督地执行仓库变更链；涉及仓库操作时，应保持 `Web Agent` 监督，并优先依赖 git 可审计证据。
+
+### 2.2 External executors and adapters
+
+#### Repo / Code Agent
+
+`Repo / Code Agent` 不是 `Web Agent ↔ Browser Agent` 默认对话环的参与者。它是一个外部执行端，通过用户或 `Browser Agent / Tabbit Agent` 转交的明确指令接收任务，并返回可审计的仓库产物。
+
+负责：
+
+- 按明确指令修改仓库文件
+- 运行测试与验证命令
+- 返回 diff、测试结果、阶段报告和必要的提交证据
+
+不负责：
+
+- 直接参与 `Web Agent ↔ Browser Agent` 的默认多轮协商
+- 拥有产品架构主责
+- 把网页端自然语言直接视为已接受授权
+
+#### Local Workspace Adapter
 
 负责：
 
@@ -66,13 +99,10 @@
 - context pack 生成
 - audit log 与产物写入
 
-### 2.5 Repo / Code Agent
+边界：
 
-负责：
-
-- 仓库内实现、测试、文档同步与提交
-- 将网页端或 Tabbit 的反馈转化为可验证改动
-- 收口阶段报告、限制说明和验证证据
+- 它属于 capability / policy adapter，不是自治协作 actor。
+- 它负责执行本地策略与产物处理，不负责替任一 agent 做产品决策。
 
 ## 3. Capability planes
 

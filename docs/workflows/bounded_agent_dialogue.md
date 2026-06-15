@@ -20,14 +20,14 @@
 ## 2. 核心行为
 
 Given: 用户启动一个多智能体协作任务，并设置 `max_rounds=5`
-When: Tabbit agent、Web Agent、仓库代码 agent 在任务中交换意见
+When: `Web Agent` 与 `Browser Agent / Tabbit Agent` 在声明好的轮次上限内交换意见
 Then: 系统最多执行 5 轮协作；若达成共识，输出 `Consensus Report`；若未达成共识，输出 `Disagreement Report` 和 `Human Confirmation Points`
 
 Given: 某一轮协作需要更多上下文，但追加读取会触发策略或权限升级
 When: 当前角色提出 read-more 请求
 Then: 系统不得自动越权，而应显式记录风险、所需权限和停止原因
 
-Given: 网页端 Agent、Tabbit agent 和仓库代码 agent 出现冲突建议
+Given: `Web Agent` 与 `Browser Agent / Tabbit Agent` 出现冲突建议，或外部仓库执行证据与协商结论不一致
 When: 本轮结束
 Then: 冲突必须进入 `Disagreements` 小节，而不是被下一位角色静默覆盖
 
@@ -41,8 +41,8 @@ Then: 冲突必须进入 `Disagreements` 小节，而不是被下一位角色静
 - `Executed Actions`
 - `Findings`
 - `Disagreements / Risks`
-- `Recommended Tabbit Browser Actions`
-- `Recommended Local Workspace Actions`
+- `Recommended Next Actions for Browser Agent`
+- `Recommended Repo Agent Instructions`
 - `Stop / Continue Decision`
 
 推荐 handoff 标题：
@@ -79,8 +79,8 @@ Then: 冲突必须进入 `Disagreements` 小节，而不是被下一位角色静
 ## Disagreements
 ## Risk / Uncertainty
 ## Human Confirmation Points
-## Recommended Next Actions for Tabbit Agent
-## Recommended Next Actions for Local Code Agent
+## Recommended Next Actions for Browser Agent
+## Recommended Repo Agent Instructions
 ## Stop Reason
 ```
 

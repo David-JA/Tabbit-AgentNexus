@@ -68,9 +68,9 @@
 
 适用场景：
 
-- 用户、网页 GPT、Tabbit agent、仓库代码 agent 同时参与当前任务
-- 需要明确谁主责需求、谁主责实现、谁负责反馈、谁做最终验收
-- 需要为多角色协作建立默认任务路由和交接物
+- `Web Agent` 与 `Browser Agent / Tabbit Agent` 需要进行多轮协作
+- 需要明确用户、`Web Agent`、`Browser Agent / Tabbit Agent` 与可选 `Repo / Code Agent` 的边界
+- 需要把可选仓库执行端从核心双 Agent 协作环中分离出来
 
 ### 6. Bounded Agent Dialogue
 
@@ -83,7 +83,7 @@
 
 - 需要 round-based 多智能体协作
 - 需要显式记录共识、分歧、风险和停止原因
-- 需要把网页端高性能 Agent、Tabbit agent 和仓库代码 agent 的多轮交互收口成可执行报告
+- 需要把 `Web Agent ↔ Browser Agent / Tabbit Agent` 的多轮交互收口成可执行报告，并在必要时附带外部仓库执行建议
 
 ## 设计原则
 

@@ -28,12 +28,14 @@ compatibility: 需要能读取当前仓库中的 readme.md、docs/architecture/n
 
 - 需要 2 轮及以上的多智能体协作
 - 需要显式记录共识、分歧、风险或人工确认点
-- 需要为网页端 Agent、Tabbit agent、仓库代码 agent 设计 round-based handoff
+- 需要为 `Web Agent ↔ Browser Agent / Tabbit Agent` 设计 round-based handoff
 
 ## 默认规则
 
 - 显式声明 `current_round / max_rounds`
 - 每轮至少交接 `Task`、`Context Used`、`Findings`、`Disagreements / Risks`、`Stop / Continue Decision`
+- 默认 bounded dialogue 是 `Web Agent ↔ Browser Agent / Tabbit Agent`
+- `Repo / Code Agent` 只在最终报告或中间 handoff 包含明确外部执行指令时出现
 - 达成共识时输出 `Consensus Report`
 - 未达成共识时输出 `Disagreement Report` 与 `Human Confirmation Points`
 

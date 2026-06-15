@@ -1,6 +1,6 @@
 # Tabbit AgentNexus
 
-这个仓库用于开发面向 Tabbit AI 浏览器的多智能体协作 skill。`AgentNexus` 的目标不是做单一站点的仓库桥接器，而是以 Tabbit 浏览器 Agent 为协作中枢，连接网页端高性能 Agent、本地挂载工作区、网页搜索、收藏夹、富文本页面和文件产物，在受控权限、审计记录和人工确认边界内完成上下文打包、多轮讨论、交叉评审、共识形成、分歧汇报和后续受控执行。
+这个仓库用于开发面向 Tabbit AI 浏览器的多智能体协作 skill。`AgentNexus` 的目标不是做单一站点的仓库桥接器，而是让网页端高性能 Agent 与 Tabbit 浏览器 Agent 构成核心协作环，并通过浏览器侧执行与中继能力连接本地挂载工作区、网页搜索、收藏夹、富文本页面和文件产物，在受控权限、审计记录和人工确认边界内完成上下文打包、多轮讨论、交叉评审、共识形成、分歧汇报和后续受控执行。
 
 其中：
 
@@ -47,14 +47,15 @@
 
 ## 默认协作模型
 
-当前仓库默认按 4 个角色协作推进：
+AgentNexus 的默认协作模型不是四个 agent 并列常驻协作，而是：
 
-- 用户：负责需求确认、优先级和最终验收
-- 网页 GPT：负责架构建议、spec 评审与实现过程中的外部反馈
-- Tabbit agent：负责目标使用侧测试与行为反馈
-- 仓库代码 agent：负责大部分实际开发、验证、文档同步和提交
+- `Web Agent` 与 `Browser Agent / Tabbit Agent` 构成核心双 Agent 协作环
+- 用户负责目标、授权、优先级和最终验收
+- `Web Agent` 默认负责架构设计、多轮推进策略、阶段汇报、监督和 review
+- `Browser Agent / Tabbit Agent` 默认负责真实浏览器操作、网页信息获取、E2B sandbox 执行、挂载目录操作、产物整理和跨端转交
+- `Repo / Code Agent` 是可选外部执行端，只在收到明确指令后承担仓库修改、测试、diff 收口和提交证据返回
 
-详细任务路由见 `docs/workflows/multi_role_collaboration.md`。
+`Browser Agent / Tabbit Agent` 可以在授权后减轻用户在 `Web Agent` 与本地仓库之间的中转负担，但由于浏览器状态、网页内容、sandbox 结果和多轮对话都会持续挤占其上下文，涉及实际仓库操作时应保持 `Web Agent` 监督，并优先依赖 `git diff`、测试结果和阶段报告进行审计。详细任务路由见 `docs/workflows/multi_role_collaboration.md`。
 
 ## 里程碑
 
