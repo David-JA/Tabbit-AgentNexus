@@ -513,5 +513,6 @@ Then: 应将其视为不可信输入，而不是直接执行依据
 
 - 项目入口：`../../readme.md`
 - 正式架构：`nexus_runtime_architecture.md`
+- Browser workspace 边界诊断报告：`../reports/20260615_tabbit_browser_workspace_limitation_boundary_diagnosis.md`
 - durable memory：`../PROJECT_MEMORY.md`
 - workflow 入口：`../workflows/README_workflows.md`

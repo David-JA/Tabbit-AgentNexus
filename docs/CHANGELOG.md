@@ -37,3 +37,4 @@
 - 将 sandbox-side 用户可见文案从 `M1 bridge` 收口为 `N1 Local Workspace Review` / `AgentNexus review-only`，并同步 discuss 索引与 active N1 spec 状态。
 - 将两份 accepted Tabbit probe report 的稳定结论升级为 architecture boundary：补充 browser workspace / tab control 边界，并在 `nexus_runtime_architecture.md` 新增 Tabbit skill runtime and distribution plane。
 - 同步 `docs/PROJECT_MEMORY.md`，沉淀 Tabbit skill 双运行时 / 双形态分发边界，以及 browser workspace 的真实 tab 寻址限制。
+- 补充 architecture → report 的反向引用，并收紧 browser workspace report 中“已知 ID 标签页”表述；同时统一本轮涉及 Markdown 的换行风格，减少后续 diff 噪声。

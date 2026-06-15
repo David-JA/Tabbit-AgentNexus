@@ -253,6 +253,7 @@ AgentNexus 支持的不是无限轮无人值守，而是 `bounded unattended col
 ## 8. Related entries
 
 - Tabbit 浏览器 agent 行为边界：`tabbit_browser_agent_behavior_boundary.md`
+- Tabbit skill 架构边界诊断报告：`../reports/20260615_tabbit_skill_architecture_boundary_diagnosis.md`
 - 多角色协作 workflow：`../workflows/multi_role_collaboration.md`
 - 多轮协作 workflow：`../workflows/bounded_agent_dialogue.md`
 - bridge 兼容入口：`bridge_runtime_architecture.md`
