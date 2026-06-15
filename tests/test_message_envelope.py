@@ -120,6 +120,78 @@ class MessageEnvelopeTests(unittest.TestCase):
         issues = validate_envelope(env)
         self.assertTrue(any("role" in i.lower() for i in issues))
 
+    def test_validate_envelope_detects_bad_payload_digest(self) -> None:
+        env = MessageEnvelope(
+            envelope_id="e1",
+            session_id="n1-test",
+            round=1,
+            direction=DIRECTION_REPO_TO_WEB,
+            target_conversation_url="https://chat.example.com/c/abc",
+            payload_role=PAYLOAD_ROLE_CONTEXT_PACK,
+            payload_digest="notsha",
+            payload_bytes=100,
+        )
+        issues = validate_envelope(env)
+        self.assertTrue(any("payload_digest" in i for i in issues))
+
+    def test_validate_envelope_detects_negative_payload_bytes(self) -> None:
+        env = MessageEnvelope(
+            envelope_id="e1",
+            session_id="n1-test",
+            round=1,
+            direction=DIRECTION_REPO_TO_WEB,
+            target_conversation_url="https://chat.example.com/c/abc",
+            payload_role=PAYLOAD_ROLE_CONTEXT_PACK,
+            payload_digest="a" * 64,
+            payload_bytes=-1,
+        )
+        issues = validate_envelope(env)
+        self.assertTrue(any("payload_bytes" in i for i in issues))
+
+    def test_validate_envelope_detects_negative_redaction_count(self) -> None:
+        env = MessageEnvelope(
+            envelope_id="e1",
+            session_id="n1-test",
+            round=1,
+            direction=DIRECTION_REPO_TO_WEB,
+            target_conversation_url="https://chat.example.com/c/abc",
+            payload_role=PAYLOAD_ROLE_CONTEXT_PACK,
+            payload_digest="a" * 64,
+            payload_bytes=100,
+            redaction_count=-3,
+        )
+        issues = validate_envelope(env)
+        self.assertTrue(any("redaction_count" in i for i in issues))
+
+    def test_validate_envelope_detects_invalid_completeness(self) -> None:
+        env = MessageEnvelope(
+            envelope_id="e1",
+            session_id="n1-test",
+            round=1,
+            direction=DIRECTION_REPO_TO_WEB,
+            target_conversation_url="https://chat.example.com/c/abc",
+            payload_role=PAYLOAD_ROLE_CONTEXT_PACK,
+            payload_digest="a" * 64,
+            payload_bytes=100,
+            completeness="complete-ish",
+        )
+        issues = validate_envelope(env)
+        self.assertTrue(any("completeness" in i for i in issues))
+
+    def test_validate_envelope_detects_empty_session_id(self) -> None:
+        env = MessageEnvelope(
+            envelope_id="e1",
+            session_id="",
+            round=1,
+            direction=DIRECTION_REPO_TO_WEB,
+            target_conversation_url="https://chat.example.com/c/abc",
+            payload_role=PAYLOAD_ROLE_CONTEXT_PACK,
+            payload_digest="a" * 64,
+            payload_bytes=100,
+        )
+        issues = validate_envelope(env)
+        self.assertTrue(any("session_id" in i for i in issues))
+
     def test_to_dict_and_json_roundtrip(self) -> None:
         import json
 

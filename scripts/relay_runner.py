@@ -14,6 +14,7 @@ import argparse
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 # Ensure repo root is importable for dual-purpose (CLI + library) usage.
 _REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -26,6 +27,15 @@ from scripts.relay_constants import (  # noqa: E402
     DEFAULT_MAX_ROUNDS,
     DIRECTION_REPO_TO_WEB,
     PAYLOAD_ROLE_CONTEXT_PACK,
+)
+
+DEFAULT_RELAY_TEMPLATE_PATH = (
+    _REPO_ROOT
+    / ".agent"
+    / "skills"
+    / "nexus-local-workspace-review"
+    / "templates"
+    / "relay_message_repo_to_web.md"
 )
 
 
@@ -75,6 +85,25 @@ def prepare_relay_handoff(
     }
 
 
+def render_relay_message(
+    *,
+    template_path: Path,
+    template_vars: dict[str, Any],
+) -> str:
+    """Render a relay handoff message from a markdown template."""
+    if not template_path.exists():
+        raise FileNotFoundError(f"relay template not found: {template_path}")
+
+    template_text = template_path.read_text(encoding="utf-8")
+    try:
+        return template_text.format(**template_vars)
+    except KeyError as exc:
+        missing = exc.args[0]
+        raise ValueError(
+            f"relay template placeholder missing from template_vars: {missing}"
+        ) from exc
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Prepare a relay handoff envelope from N1 review artifacts."
@@ -102,6 +131,16 @@ def parse_args() -> argparse.Namespace:
         "--output", type=Path,
         help="Write envelope JSON to file instead of stdout.",
     )
+    parser.add_argument(
+        "--template",
+        type=Path,
+        help="Template path for rendering a repo-to-web relay message.",
+    )
+    parser.add_argument(
+        "--message-output",
+        type=Path,
+        help="Write a rendered relay message to this file.",
+    )
     return parser.parse_args()
 
 
@@ -119,12 +158,36 @@ def main() -> int:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
 
+    if args.template and not args.message_output:
+        print(
+            "ERROR: --template requires --message-output",
+            file=sys.stderr,
+        )
+        return 1
+
+    rendered_message: str | None = None
+    if args.message_output:
+        template_path = args.template or DEFAULT_RELAY_TEMPLATE_PATH
+        try:
+            rendered_message = render_relay_message(
+                template_path=template_path,
+                template_vars=result["template_vars"],
+            )
+        except (FileNotFoundError, ValueError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 1
+
     envelope_json = json.dumps(result["envelope"], indent=2, ensure_ascii=False)
     if args.output:
         args.output.write_text(envelope_json, encoding="utf-8")
         print(f"Envelope written to {args.output}")
     else:
         print(envelope_json)
+
+    if rendered_message is not None:
+        args.message_output.parent.mkdir(parents=True, exist_ok=True)
+        args.message_output.write_text(rendered_message, encoding="utf-8")
+        print(f"Relay message written to {args.message_output}")
     return 0
 
 

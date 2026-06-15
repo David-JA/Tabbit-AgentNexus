@@ -42,3 +42,9 @@
 - 新建当前阶段 active spec `discuss/2026-06-15_n1-foundation-relay-validation-spec.md`：把上一版“单纯 N1 Local Workspace Review Adapter”升级为“N1 AgentNexus foundation + browser-mediated relay prototype + repo execution governance + validation”，显式区分 two-layer actor model（产品目标双 Agent 核心协作环 vs 当前仓库 supervised four-role 开发推进），并把 relay 从“发现”升级为“开发对象”（14 步 ledger、message envelope、completeness / retry / 用户介入出口规则）。同时把 predecessor spec `2026-06-14_m1-repo-review-bridge-implement-spec.md` 标记 legacy / superseded（正文保留为历史实施证据），并同步 discuss 索引与当前状态。
 - 完成 Phase 1 Repo-side foundation consolidation：在 active spec 的 `Foundation Architecture / Repo-side foundation` 下新增 11 行 foundation status table（覆盖 6 个 sandbox 脚本、session runner、policy 配置、repo-context exporter、skill scaffold、test suite），确认基线不变式仍成立（`pytest -q` → 22 passed），记录唯一测试覆盖缺口（`scripts/tools/package_nexus_context.py` 无测试，属独立 export 工具不阻塞 relay）。
 - 完成 Phase 2+4 Repo-side relay protocol 设计与实现：新增 5 个 dual-purpose Python 模块（`scripts/relay_constants.py`、`scripts/message_envelope.py`、`scripts/relay_ledger.py`、`scripts/relay_completeness.py`、`scripts/relay_runner.py`）+ 1 个 relay 模板（`templates/relay_message_repo_to_web.md`）+ 5 个新测试文件（49 个 relay/runner 测试用例），全量 `pytest -q` → 71 passed。T4（Tabbit workspace supervised test）标记为依赖 Browser Agent，T6（闭环验收）依赖 T4+Web Agent。
+
+## 2026-06-16
+
+- 对 active relay spec 做小修收口：清理“本 spec 不实现代码”与“Phase 2/4 已实现”并存的残留表述，明确 repo-side relay modules 已落地，而 browser-side live relay 仍待 T4。
+- 加强 `message_envelope.py` 与 `relay_ledger.py` 的 library 入口校验：补齐 SHA-256 digest、`session_id`、非负数字段、completeness、canonical step/status/round/duration 等约束，避免仅 CLI 层受限而 library 路径可写入非法 envelope / ledger。
+- 补完 `relay_runner.py` 的 repo→web handoff 最后半步：新增 `--template` / `--message-output` 渲染 relay message，并同步 `nexus-local-workspace-review` skill 说明默认 relay handoff 路径与模板用法。

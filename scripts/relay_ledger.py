@@ -28,15 +28,12 @@ if str(_REPO_ROOT) not in sys.path:
 
 from scripts.relay_constants import (  # noqa: E402
     RELAY_STEPS,
-    STOP_MAX_ROUNDS,
-    STOP_CONSENSUS,
-    STOP_USER_ABORT,
-    STOP_RELAY_STUCK,
-    STOP_ERROR,
     all_step_ids,
     is_valid_step_id,
     stop_reason_valid,
 )
+
+VALID_STEP_STATUSES = {"ok", "error", "skipped", "stuck"}
 
 
 def _now_iso() -> str:
@@ -124,6 +121,8 @@ class RelayLedger:
     """
 
     def __init__(self, log_path: Path, session_id: str) -> None:
+        if not session_id:
+            raise ValueError("session_id must be non-empty")
         self._log_path = log_path
         self._session_id = session_id
         log_path.parent.mkdir(parents=True, exist_ok=True)
@@ -138,6 +137,12 @@ class RelayLedger:
         duration_ms: int | None = None,
         **extra: Any,
     ) -> LedgerStep:
+        self._validate_step(
+            round=round,
+            step_id=step_id,
+            status=status,
+            duration_ms=duration_ms,
+        )
         step = LedgerStep(
             round=round,
             step_id=step_id,
@@ -151,6 +156,7 @@ class RelayLedger:
         return step
 
     def write_round_summary(self, summary: RelayRoundSummary) -> None:
+        self._validate_summary(summary)
         payload = summary.to_dict()
         payload["session_id"] = self._session_id
         self._append(payload, event="relay_round_summary")
@@ -165,6 +171,38 @@ class RelayLedger:
     @property
     def log_path(self) -> Path:
         return self._log_path
+
+    @staticmethod
+    def _validate_step(
+        *,
+        round: int,
+        step_id: str,
+        status: str,
+        duration_ms: int | None,
+    ) -> None:
+        if round < 1:
+            raise ValueError("round must be >= 1")
+        if not is_valid_step_id(step_id):
+            raise ValueError(f"Unknown relay step id: {step_id!r}")
+        if status not in VALID_STEP_STATUSES:
+            raise ValueError(f"Unknown relay step status: {status!r}")
+        if duration_ms is not None and duration_ms < 0:
+            raise ValueError("duration_ms must be >= 0")
+
+    @staticmethod
+    def _validate_summary(summary: RelayRoundSummary) -> None:
+        if summary.round < 1:
+            raise ValueError("round must be >= 1")
+        if summary.stop_reason is not None and not stop_reason_valid(summary.stop_reason):
+            raise ValueError(f"Unknown stop reason: {summary.stop_reason!r}")
+        if summary.steps_completed < 0:
+            raise ValueError("steps_completed must be >= 0")
+        if summary.steps_total < 0:
+            raise ValueError("steps_total must be >= 0")
+        if summary.steps_completed > summary.steps_total:
+            raise ValueError("steps_completed must be <= steps_total")
+        if summary.errors < 0:
+            raise ValueError("errors must be >= 0")
 
 
 # ---------------------------------------------------------------------------

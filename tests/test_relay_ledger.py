@@ -53,6 +53,35 @@ class RelayLedgerTests(unittest.TestCase):
         self.assertEqual(step.status, "error")
         self.assertIsNotNone(step.error)
 
+    def test_record_step_rejects_round_zero(self) -> None:
+        ledger = RelayLedger(self.log_path, self.session_id)
+        with self.assertRaisesRegex(ValueError, "round must be >= 1"):
+            ledger.record_step(round=0, step_id="1_locate_conversation", status="ok")
+
+    def test_record_step_rejects_unknown_step_id(self) -> None:
+        ledger = RelayLedger(self.log_path, self.session_id)
+        with self.assertRaisesRegex(ValueError, "Unknown relay step id"):
+            ledger.record_step(round=1, step_id="99_bad", status="ok")
+
+    def test_record_step_rejects_unknown_status(self) -> None:
+        ledger = RelayLedger(self.log_path, self.session_id)
+        with self.assertRaisesRegex(ValueError, "Unknown relay step status"):
+            ledger.record_step(
+                round=1,
+                step_id="1_locate_conversation",
+                status="nonsense",
+            )
+
+    def test_record_step_rejects_negative_duration(self) -> None:
+        ledger = RelayLedger(self.log_path, self.session_id)
+        with self.assertRaisesRegex(ValueError, "duration_ms must be >= 0"):
+            ledger.record_step(
+                round=1,
+                step_id="1_locate_conversation",
+                status="ok",
+                duration_ms=-5,
+            )
+
     def test_write_round_summary(self) -> None:
         ledger = RelayLedger(self.log_path, self.session_id)
         summary = RelayRoundSummary(
@@ -94,6 +123,10 @@ class RelayLedgerTests(unittest.TestCase):
         ledger.record_step(round=1, step_id="1_locate_conversation", status="ok")
         self.assertTrue(deep_path.exists())
 
+    def test_ledger_rejects_empty_session_id(self) -> None:
+        with self.assertRaisesRegex(ValueError, "session_id must be non-empty"):
+            RelayLedger(self.log_path, "")
+
     def test_step_to_dict_excludes_empty_fields(self) -> None:
         step = LedgerStep(round=1, step_id="1_locate_conversation", status="ok")
         d = step.to_dict()
@@ -119,6 +152,13 @@ class RelayRoundSummaryTests(unittest.TestCase):
         self.assertEqual(d["stop_reason"], STOP_MAX_ROUNDS)
         self.assertEqual(d["steps_completed"], 10)
         self.assertEqual(d["errors"], 2)
+
+    def test_summary_validation_rejects_bad_stop_reason(self) -> None:
+        ledger = RelayLedger(Path(tempfile.gettempdir()) / "summary.jsonl", "n1-summary")
+        with self.assertRaisesRegex(ValueError, "Unknown stop reason"):
+            ledger.write_round_summary(
+                RelayRoundSummary(round=1, stop_reason="mystery_stop")
+            )
 
 
 if __name__ == "__main__":

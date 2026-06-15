@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import string
 import sys
 import uuid
 from dataclasses import dataclass, field
@@ -30,6 +31,8 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from scripts.relay_constants import (  # noqa: E402
+    COMPLETENESS_COMPLETE,
+    COMPLETENESS_INCOMPLETE,
     COMPLETENESS_UNKNOWN,
     DIRECTION_REPO_TO_WEB,
     DIRECTION_WEB_TO_REPO,
@@ -46,6 +49,10 @@ def _now_iso() -> str:
 
 def _sha256_hex(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def _is_sha256_hex(value: str) -> bool:
+    return len(value) == 64 and all(ch in string.hexdigits for ch in value)
 
 
 @dataclass(frozen=True)
@@ -131,7 +138,10 @@ def validate_envelope(envelope: MessageEnvelope) -> list[str]:
     - direction must be one of the known values.
     - payload_role must be one of the known values.
     - round must be >= 1.
-    - envelope_id must be non-empty.
+    - envelope_id and session_id must be non-empty.
+    - payload_digest must be a 64-character SHA-256 hex string.
+    - payload_bytes and redaction_count must be >= 0.
+    - completeness must be complete | incomplete | unknown.
     """
     issues: list[str] = []
 
@@ -160,8 +170,27 @@ def validate_envelope(envelope: MessageEnvelope) -> list[str]:
     if not envelope.envelope_id:
         issues.append("envelope_id must be non-empty")
 
-    if not envelope.payload_digest:
-        issues.append("payload_digest must be non-empty")
+    if not envelope.session_id:
+        issues.append("session_id must be non-empty")
+
+    if not _is_sha256_hex(envelope.payload_digest):
+        issues.append("payload_digest must be a 64-character SHA-256 hex string")
+
+    if envelope.payload_bytes < 0:
+        issues.append("payload_bytes must be >= 0")
+
+    if envelope.redaction_count < 0:
+        issues.append("redaction_count must be >= 0")
+
+    valid_completeness = {
+        COMPLETENESS_COMPLETE,
+        COMPLETENESS_INCOMPLETE,
+        COMPLETENESS_UNKNOWN,
+    }
+    if envelope.completeness not in valid_completeness:
+        issues.append(
+            "completeness must be one of: complete, incomplete, unknown"
+        )
 
     return issues
 

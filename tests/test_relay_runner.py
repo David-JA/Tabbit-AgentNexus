@@ -4,7 +4,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.relay_runner import prepare_relay_handoff
+from scripts.relay_runner import (
+    DEFAULT_RELAY_TEMPLATE_PATH,
+    prepare_relay_handoff,
+    render_relay_message,
+)
 from scripts.relay_constants import DIRECTION_REPO_TO_WEB, COMPLETENESS_UNKNOWN
 
 
@@ -76,6 +80,39 @@ class RelayRunnerTests(unittest.TestCase):
             result_a["envelope"]["payload_digest"],
             result_b["envelope"]["payload_digest"],
         )
+
+    def test_render_relay_message_replaces_required_placeholders(self) -> None:
+        pack_path = self._write_context_pack("payload body")
+        result = prepare_relay_handoff(
+            session_id="n1-test",
+            context_pack_path=pack_path,
+            round_number=2,
+            redaction_count=1,
+        )
+        template_path = Path(self.temp_dir.name) / "relay_template.md"
+        template_path.write_text(
+            "Session={session_id}\nRound={round}\nEnvelope={envelope_id}\nPayload={payload}",
+            encoding="utf-8",
+        )
+        rendered = render_relay_message(
+            template_path=template_path,
+            template_vars=result["template_vars"],
+        )
+        self.assertIn("Session=n1-test", rendered)
+        self.assertIn("Round=2", rendered)
+        self.assertIn("Envelope=", rendered)
+        self.assertIn("Payload=payload body", rendered)
+
+    def test_default_relay_template_exists(self) -> None:
+        self.assertTrue(DEFAULT_RELAY_TEMPLATE_PATH.exists())
+
+    def test_render_relay_message_missing_template_raises(self) -> None:
+        missing = Path(self.temp_dir.name) / "missing.md"
+        with self.assertRaises(FileNotFoundError):
+            render_relay_message(
+                template_path=missing,
+                template_vars={"session_id": "n1"},
+            )
 
 
 if __name__ == "__main__":
