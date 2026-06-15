@@ -7,7 +7,7 @@
 <!-- DISCUSS_SPEC_INDEX:START -->
 | Date | Status | Type | Title | File | Notes |
 |---|---|---|---|---|---|
-| 2026-06-15 | Phase 1 done / Phase 2+ pending | workflow | N1 AgentNexus Foundation, Relay, and Validation Spec | [2026-06-15_n1-foundation-relay-validation-spec.md](2026-06-15_n1-foundation-relay-validation-spec.md) | current active spec; covers repo foundation + browser-mediated relay + supervised four-role workflow |
+| 2026-06-15 | Phase 1-4 repo-side done / Phase 3 browser-side pending | workflow | N1 AgentNexus Foundation, Relay, and Validation Spec | [2026-06-15_n1-foundation-relay-validation-spec.md](2026-06-15_n1-foundation-relay-validation-spec.md) | current active spec; covers repo foundation + browser-mediated relay + supervised four-role workflow |
 | 2026-06-14 | legacy / superseded | implementation | N1 Local Workspace Review Adapter implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | superseded by 2026-06-15 successor; body retained as historical implementation evidence |
 <!-- DISCUSS_SPEC_INDEX:END -->
 
