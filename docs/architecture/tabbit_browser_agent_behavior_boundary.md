@@ -165,6 +165,24 @@ Chat Mode 更接近“有工具的智能助手”，常见能力来源包括：
 - `navigate_page(url=...)` 可作为 URL restore fallback，但不得表述为“旧标签页实例切换已证成”。
 - 若后续流程需要返回旧的 ChatGPT 会话，应先记录完整会话 URL；同时必须说明 URL restore 不保证原标签实例、滚动位置、输入状态或历史栈。
 
+### 4.3.2 Browser-mediated cross-space interaction boundary
+
+当前环境已经出现一条原型级 `browser-mediated cross-space interaction`：
+
+- Tabbit agent 可通过浏览器控制工具读取网页端 GPT 输出。
+- Tabbit agent 可通过输入区定位、消息发送和后续观察继续推进网页端对话。
+- 在 `docs/reports/transcripts/20260615_tabbit_skill_architecture_probe_transcript.md` 的 T02-T04 中，物理传输方式已被明确标注为 `browser-mediated`，而不是 `user-relay`。
+
+这意味着当前边界不只是“用户手动转述两个 agent 的消息”，还包括：
+
+- Tabbit agent 已可在原型层以浏览器用户身份读取和操控网页 AI 对话页。
+
+但它当前仍不应被写成稳定 contract：
+
+- 链路仍可能偏慢。
+- 工具调度循环可能导致推进卡顿。
+- 输出完整性判断、恢复策略和异常 fallback 仍需流程规范化。
+
 ### 4.4 Agent Mode 下的 E2B sandbox 执行
 
 这是浏览器自动化之外的关键配套能力。
@@ -419,6 +437,7 @@ Chat Mode 更接近“有工具的智能助手”，常见能力来源包括：
 - 依赖型步骤通常需要串行，不能假设所有动作都适合并发
 - browser workspace 当前不支持把“已知页面汇报”误写成“全量标签页枚举”。
 - 返回旧页面时，URL restore 只是内容恢复 fallback，不等于旧标签页实例切换。
+- browser-mediated cross-space interaction 已出现，但当前不应假设其稳定性、时延和完整性判断已经达到默认可依赖水平。
 
 ### 6.4 Git 使用限制
 
@@ -479,6 +498,10 @@ Then: 应切换为坐标定位，并配合截图或焦点确认
 Given: 当前流程新建了后台标签页或需要切回先前页面
 When: 需要继续基于 tab/page 做导航
 Then: 应复查当前活动页、只使用工具返回的真实 ID，并把 URL restore 视为 fallback 而不是旧标签页实例切换证明
+
+Given: 当前需要让 Tabbit agent 与网页端 GPT 持续交换消息
+When: 浏览器工具已足以完成读取、输入与发送
+Then: 可以把该链路视为 `browser-mediated cross-space interaction` 原型，但仍应保留完整性判断、异常恢复和必要时的用户纠偏出口
 
 Given: 沙箱内已经生成 Word、Excel、PPT 或 PDF 文件
 When: 用户目标是在线文档或浏览器内最终展示

@@ -38,3 +38,4 @@
 - 将两份 accepted Tabbit probe report 的稳定结论升级为 architecture boundary：补充 browser workspace / tab control 边界，并在 `nexus_runtime_architecture.md` 新增 Tabbit skill runtime and distribution plane。
 - 同步 `docs/PROJECT_MEMORY.md`，沉淀 Tabbit skill 双运行时 / 双形态分发边界，以及 browser workspace 的真实 tab 寻址限制。
 - 补充 architecture → report 的反向引用，并收紧 browser workspace report 中“已知 ID 标签页”表述；同时统一本轮涉及 Markdown 的换行风格，减少后续 diff 噪声。
+- 修正 `20260615_tabbit_skill_architecture_boundary_diagnosis.md` 的关键缺漏：将 T02-T04 的 `browser-mediated cross-space interaction` 原型提升为正式发现，并同步到 runtime architecture、Tabbit 浏览器行为边界、readme 与 durable memory。

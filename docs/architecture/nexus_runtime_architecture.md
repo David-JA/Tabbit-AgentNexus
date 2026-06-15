@@ -60,6 +60,7 @@
 负责：
 
 - 浏览器页面导航、观察与交互
+- 在受控条件下以浏览器用户身份读取、投递并回收网页端 Agent 对话，承担 `browser-mediated cross-space interaction` 原型
 - 把上下文安全送入网页端 Agent
 - 回收网页端结果、浏览器观察与产物状态
 - 搜索、rich page interaction、E2B sandbox 执行和挂载目录操作
@@ -69,6 +70,7 @@
 
 - `Browser Agent / Tabbit Agent` 功能强，但上下文成本高。
 - 浏览器状态、网页快照、sandbox 日志和与 `Web Agent` 的多轮对话都会持续占用其上下文。
+- `browser-mediated cross-space interaction` 已出现原型能力，但当前还不是默认稳定 transport；当链路过慢、卡在工具调度循环或缺少完整性判断时，用户仍可临时介入中转与纠偏。
 - 不应让它长时间无人监督地执行仓库变更链；涉及仓库操作时，应保持 `Web Agent` 监督，并优先依赖 git 可审计证据。
 
 ### 2.2 External executors and adapters
@@ -111,6 +113,7 @@
 - 页面导航
 - 页面观察
 - 表单/富文本/网页交互
+- 网页端 Agent 对话页的读取、输入与消息投递
 - 浏览器原生上下文源管理
 
 ### 3.2 Web-agent dialogue plane

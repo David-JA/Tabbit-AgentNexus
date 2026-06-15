@@ -113,3 +113,14 @@ Tags: tabbit, browser, workspace, tabs
 
 Why it matters:
 如果把“已知页面汇报”误当成“完整工作区寻址”，后续 browser workflow 会错误依赖不存在的 tab 枚举和旧页实例切换能力。
+
+## Browser-Mediated Cross-Space Interaction Prototype
+
+Tags: tabbit, browser, cross-space, relay, gpt
+
+- `docs/reports/transcripts/20260615_tabbit_skill_architecture_probe_transcript.md` 的 T02-T04 已证实：Tabbit agent 可以通过浏览器控制工具读取、输入并发送网页端 GPT 对话，物理传输不是默认依赖用户手动 relay。
+- 这说明 AgentNexus 的目标边界已经推进到“浏览器代理可原型级承担网页 AI 对话 relay / orchestration”，而不只是“两个 agent 通过用户转述协作”。
+- 该能力当前只可视为原型：速度、工具调度卡顿、输出完整性判断和异常恢复仍需治理，不能默认当成稳定 transport。
+
+Why it matters:
+如果未来 agent 忽略这条发现，会低估 AgentNexus 的真实可达目标；如果反过来把它过早写成稳定闭环，又会在可靠性和风险控制上过度承诺。
