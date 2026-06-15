@@ -28,13 +28,13 @@
 默认推荐：
 
 ```text
-YYYY-MM-DD_<slug>.md
+YYYYMMDD_<slug>.md
 ```
 
 例如：
 
-- `2026-06-14_m1_repo_review_bridge_baseline.md`
-- `2026-06-20_session_policy_contract_review.md`
+- `20260614_m1_repo_review_bridge_baseline.md`
+- `20260620_session_policy_contract_review.md`
 
 ## 报告风格建议
 
