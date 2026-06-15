@@ -47,13 +47,29 @@ python scripts/n1_review_session.py `
 - `session_summary.json`
 - 状态 `ready_to_send`
 
+若当前目标是 `T4-A2` 的 repo-side implementation verification，优先使用专用 policy：
+
+```powershell
+python scripts/n1_review_session.py `
+  --repo-root <mounted-repo-root> `
+  --artifact-root <artifact-root> `
+  --policy config/default_policy.t4_implementation_verification.json
+```
+
+这个 profile 在保持 bounded context 的前提下，额外纳入：
+
+- `config/**`
+- relay 核心脚本
+- focused relay / session tests
+- 当前 relay handoff skill / spec 所需最小入口
+
 若需要为 Browser Agent / Tabbit Agent 准备 relay handoff，可继续执行：
 
 ```powershell
 python scripts/relay_runner.py `
   --session-id <session-id> `
-  --context-pack <artifact-root>/<session-id>/context_pack.md `
-  --message-output <artifact-root>/<session-id>/relay_message_repo_to_web.md
+  --context-pack <actual-context-pack-path-from-session-summary> `
+  --message-output <actual-artifact-root>/<session-id>/relay_message_repo_to_web.md
 ```
 
 默认使用本 skill 的 `templates/relay_message_repo_to_web.md` 渲染消息；如需自定义模板，可额外传：
@@ -66,13 +82,17 @@ python scripts/relay_runner.py `
 
 1. 确认 `repo_root` 是当前 sandbox 可见的挂载仓库。
 2. 运行 `scripts/n1_review_session.py` 生成本地产物。
-3. 读取 `session_summary.json` 中的发送确认摘要：
+3. 读取 `session_summary.json`，先以其中的 `artifacts.context_pack` 和 `actual_artifact_root` 作为 source of truth：
+   - `--artifact-root` 如果落在 `repo_root` 内，`n1_review_session.py` 会 fallback 到 repo 外路径。
+   - 调用 `relay_runner.py` 前，必须先读取 `session_summary.json`，不要硬编码 `exports/.../context_pack.md`。
+   - T4 报告需要区分 actual artifact root 与后续复制/导出的 mirror 路径。
+4. 再读取 `session_summary.json` 中的发送确认摘要：
    - selected files
    - total bytes
    - redaction counts
    - default exclusions
-4. 若需要浏览器发送，等待 Tabbit live capability probe 结论后再进入 browser path。
-5. 若需要 repo-side relay handoff，运行 `scripts/relay_runner.py` 生成 envelope 与可直接投递给网页端 Agent 的消息模板。
+5. 若需要浏览器发送，等待 Tabbit live capability probe 结论后再进入 browser path。
+6. 若需要 repo-side relay handoff，运行 `scripts/relay_runner.py` 生成 envelope 与可直接投递给网页端 Agent 的消息模板。
 
 ## 模板
 
@@ -102,9 +122,10 @@ python scripts/n1_review_session.py `
 5. `audit.jsonl` 路径
 6. `session_summary.json` 路径
 7. 是否触发 artifact fallback
-8. 发送前确认摘要
-9. 若执行 relay handoff：envelope JSON 路径
-10. 若执行 relay handoff：rendered relay message 路径
+8. fallback reason（若有）
+9. 发送前确认摘要
+10. 若执行 relay handoff：envelope JSON 路径
+11. 若执行 relay handoff：rendered relay message 路径
 
 ## 边界
 

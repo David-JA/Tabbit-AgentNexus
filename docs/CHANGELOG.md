@@ -48,3 +48,5 @@
 - 对 active relay spec 做小修收口：清理“本 spec 不实现代码”与“Phase 2/4 已实现”并存的残留表述，明确 repo-side relay modules 已落地，而 browser-side live relay 仍待 T4。
 - 加强 `message_envelope.py` 与 `relay_ledger.py` 的 library 入口校验：补齐 SHA-256 digest、`session_id`、非负数字段、completeness、canonical step/status/round/duration 等约束，避免仅 CLI 层受限而 library 路径可写入非法 envelope / ledger。
 - 补完 `relay_runner.py` 的 repo→web handoff 最后半步：新增 `--template` / `--message-output` 渲染 relay message，并同步 `nexus-local-workspace-review` skill 说明默认 relay handoff 路径与模板用法。
+- 为 `T4-A2` 增加有界 implementation-verification profile：新建 `config/default_policy.t4_implementation_verification.json`，显式纳入 `config/**`、focused relay/session tests 与 core relay scripts，避免继续挤压默认 `review_only` policy。
+- 同步 `nexus-local-workspace-review` skill 与 active spec：明确 `artifact_root` 落在 repo 内时会 fallback 到 repo 外，调用方必须从 `session_summary.json` 读取 `actual_artifact_root` 与 `artifacts.context_pack`，并在 T4 报告中区分 actual artifact root 与 copied/exported mirror。
