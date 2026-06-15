@@ -39,3 +39,4 @@
 - 同步 `docs/PROJECT_MEMORY.md`，沉淀 Tabbit skill 双运行时 / 双形态分发边界，以及 browser workspace 的真实 tab 寻址限制。
 - 补充 architecture → report 的反向引用，并收紧 browser workspace report 中“已知 ID 标签页”表述；同时统一本轮涉及 Markdown 的换行风格，减少后续 diff 噪声。
 - 修正 `20260615_tabbit_skill_architecture_boundary_diagnosis.md` 的关键缺漏：将 T02-T04 的 `browser-mediated cross-space interaction` 原型提升为正式发现，并同步到 runtime architecture、Tabbit 浏览器行为边界、readme 与 durable memory。
+- 新建当前阶段 active spec `discuss/2026-06-15_n1-foundation-relay-validation-spec.md`：把上一版“单纯 N1 Local Workspace Review Adapter”升级为“N1 AgentNexus foundation + browser-mediated relay prototype + repo execution governance + validation”，显式区分 two-layer actor model（产品目标双 Agent 核心协作环 vs 当前仓库 supervised four-role 开发推进），并把 relay 从“发现”升级为“开发对象”（14 步 ledger、message envelope、completeness / retry / 用户介入出口规则）。同时把 predecessor spec `2026-06-14_m1-repo-review-bridge-implement-spec.md` 标记 legacy / superseded（正文保留为历史实施证据），并同步 discuss 索引与当前状态。

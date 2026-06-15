@@ -7,7 +7,8 @@
 <!-- DISCUSS_SPEC_INDEX:START -->
 | Date | Status | Type | Title | File | Notes |
 |---|---|---|---|---|---|
-| 2026-06-14 | N1 scaffold in progress | implementation | N1 Local Workspace Review Adapter implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | former name M1 Repo Review Bridge; current scenario is repo-review |
+| 2026-06-15 | Phase 0 done / Phase 1+ pending | workflow | N1 AgentNexus Foundation, Relay, and Validation Spec | [2026-06-15_n1-foundation-relay-validation-spec.md](2026-06-15_n1-foundation-relay-validation-spec.md) | current active spec; covers repo foundation + browser-mediated relay + supervised four-role workflow |
+| 2026-06-14 | legacy / superseded | implementation | N1 Local Workspace Review Adapter implement spec | [2026-06-14_m1-repo-review-bridge-implement-spec.md](2026-06-14_m1-repo-review-bridge-implement-spec.md) | superseded by 2026-06-15 successor; body retained as historical implementation evidence |
 <!-- DISCUSS_SPEC_INDEX:END -->
 
 ## 放置规则
@@ -18,7 +19,8 @@
 
 ## 当前状态
 
-- 当前活跃 discuss 入口只保留 `2026-06-14_m1-repo-review-bridge-implement-spec.md`，作为 N1 `repo-review` scenario 的主实现 spec。
+- 当前活跃 discuss 入口是 `2026-06-15_n1-foundation-relay-validation-spec.md`，作为 N1 AgentNexus foundation + browser-mediated relay + supervised four-role development 的当前阶段 active spec。
+- `2026-06-14_m1-repo-review-bridge-implement-spec.md` 已转为 legacy / superseded，只在顶部指向 successor；正文保留作为历史实施证据，不再作为当前主入口。
 - 已完成的 workflow、实现收口记录和 bridge 阶段背景材料已统一转入 `archive/`，避免与当前活跃 spec 混放。
 - `2026-06-15_two-agent-core-collaboration-model.md` 已完成正式收口，并通过 accepted report 固化为当前默认协作模型的 supersession 记录。
 - `2026-06-15_bridge-multi-role-collaboration-workflow.md` 只保留为历史实现记录，不再代表当前默认协作模型。

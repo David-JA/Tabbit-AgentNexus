@@ -3,10 +3,12 @@
 > Former name: `M1 Repo Review Bridge`
 > Scenario: `repo-review`
 
-> Status: N1 scaffold in progress
+> Status: legacy / superseded for current planning
 > Created: 2026-06-14
 > Spec type: implementation
 > Profile: nexus-default
+> Successor: `discuss/2026-06-15_n1-foundation-relay-validation-spec.md`
+> Note: 本文档记录原始 N1 Repo Review Bridge 实施计划。当前开发已推进到 AgentNexus N1 foundation + browser-mediated relay + supervised four-role development workflow。历史正文保留以供追溯，不再作为当前主入口。
 
 ## Summary
 
