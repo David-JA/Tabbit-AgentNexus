@@ -12,8 +12,8 @@ class AuditLogTests(unittest.TestCase):
     def test_append_event_writes_jsonl(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             log_path = Path(temp_dir) / "audit.jsonl"
-            payload = append_event(log_path, "m1-test", "context_pack_built", bytes_total=12)
-            self.assertEqual(payload["session_id"], "m1-test")
+            payload = append_event(log_path, "n1-test", "context_pack_built", bytes_total=12)
+            self.assertEqual(payload["session_id"], "n1-test")
             lines = log_path.read_text(encoding="utf-8").splitlines()
             self.assertEqual(len(lines), 1)
             parsed = json.loads(lines[0])

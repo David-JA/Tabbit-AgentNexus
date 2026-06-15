@@ -18,7 +18,7 @@ class ContextPackagerTests(unittest.TestCase):
         repo_root = FIXTURES / "m1_repo_with_secrets"
         git_info = {"git_available": False, "repo_is_git": False}
         pack = build_context_pack(repo_root, self.policy, git_info)
-        self.assertIn("# M1 Repo Review Context Pack", pack.content)
+        self.assertIn("# N1 Local Workspace Review Context Pack", pack.content)
         self.assertIn("[REDACTED_POSSIBLE_SECRET:openai_api_key]", pack.content)
         self.assertNotIn("sk-live-abcdefghijklmnopqrstuvwxyz", pack.content)
         self.assertGreater(pack.manifest["redaction_count"], 0)

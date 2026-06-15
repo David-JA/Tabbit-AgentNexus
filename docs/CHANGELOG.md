@@ -30,3 +30,7 @@
 - 修正 `bridge_repo_context` 的 `overview` 打包逻辑：默认纳入 `config/`、`scripts/`、`tests/`，确保网页 AI 评审包同时覆盖脚本、配置、测试和文档。
 - 根据验收反馈完成 active 文档术语 cleanup，清掉 AgentNexus 定位迁移后的残留旧称。
 - 将 `2026-06-15_agent-nexus-positioning-and-rename.md` 转入 `discuss/archive/`，作为定位迁移内容验收与正式收口记录保留。
+- 新增 `scripts/n1_review_session.py`，把 N1 `repo-review` local dry run 收口为统一入口：创建 `context_pack.md`、`audit.jsonl`、`session_summary.json` 并默认停在 `ready_to_send`。
+- 新增 `.agent/skills/nexus-local-workspace-review/`，明确 N1 local-only 执行顺序、review request 模板和 browser adapter handoff 边界。
+- 新增 runner 级测试与 `tests/conftest.py`，覆盖 artifact fallback、no-git、denied-only、secret redaction 和 `no_write_repo`，同时修复裸跑 `pytest -q` 的导入稳定性。
+- 将 sandbox-side 用户可见文案从 `M1 bridge` 收口为 `N1 Local Workspace Review` / `AgentNexus review-only`，并同步 discuss 索引与 active N1 spec 状态。

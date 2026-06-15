@@ -1,1 +1,1 @@
-"""M1 bridge sandbox-side runtime helpers."""
+"""AgentNexus N1 sandbox-side runtime helpers."""

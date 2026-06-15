@@ -87,7 +87,7 @@ def probe(repo_root: Path, timeout_sec: float = 2.0, recent_commits: int = 5) ->
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Probe git metadata for the M1 review bridge.")
+    parser = argparse.ArgumentParser(description="Probe git metadata for the N1 local workspace review adapter.")
     parser.add_argument("--repo-root", type=Path, required=True, help="Mounted repo root.")
     parser.add_argument("--timeout-sec", type=float, default=2.0, help="Timeout per git command.")
     parser.add_argument(

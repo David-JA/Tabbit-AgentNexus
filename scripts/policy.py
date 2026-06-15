@@ -34,7 +34,7 @@ def create_session(
 ) -> dict[str, Any]:
     base = dict(policy or load_default())
     base["repo_root"] = str(repo_root.resolve())
-    base["session_id"] = session_id or f"m1-{uuid.uuid4().hex[:12]}"
+    base["session_id"] = session_id or f"n1-{uuid.uuid4().hex[:12]}"
     return base
 
 
@@ -73,7 +73,7 @@ def is_path_allowed(candidate: Path, repo_root: Path, policy: dict[str, Any]) ->
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Evaluate whether paths are allowed by M1 policy.")
+    parser = argparse.ArgumentParser(description="Evaluate whether paths are allowed by the N1 review-only policy.")
     parser.add_argument("--repo-root", type=Path, required=True, help="Mounted repo root.")
     parser.add_argument(
         "--policy",

@@ -1,3 +1,3 @@
 # Basic Fixture Repo
 
-This repo is for M1 context packaging tests.
+This repo is for N1 local workspace review tests.

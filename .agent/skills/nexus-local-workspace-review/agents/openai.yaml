@@ -1,0 +1,7 @@
+interface:
+  display_name: "N1 Local Workspace Review"
+  short_description: "为 AgentNexus 的 repo-review 场景生成 ready-to-send 本地评审产物"
+  default_prompt: "Use $nexus-local-workspace-review to run the N1 local-only review session, generate the context pack artifacts, and prepare the send confirmation summary before any browser submission."
+
+policy:
+  allow_implicit_invocation: true

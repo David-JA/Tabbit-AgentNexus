@@ -275,12 +275,14 @@ Then: context pack and audit log are preserved, the failure is recorded, and no 
 ## Execution Plan
 
 - [ ] `T1`: Confirm actual Tabbit tool names, artifact path behavior, and whether `evaluate_script` is available on ChatGPT content pages.
-- [ ] `T2`: Create the minimal AgentNexus adapter skill scaffold for N1.
+- [x] `T2`: Create the minimal AgentNexus adapter skill scaffold for N1.
 - [x] `T3`: Implement sandbox scripts: `discover_repo.py`, `git_probe.py`, `policy.py`, `redact.py`, `context_packager.py`, `audit_log.py`.
 - [ ] `T4`: Implement or document the minimal browser interaction path for ChatGPT review submission and reply capture.
 - [x] `T5`: Add focused tests for policy, redaction, context packaging, git graceful degradation, and audit events.
-- [ ] `T6`: Run an end-to-end N1 dry run against a small mounted repo and save artifacts.
-- [ ] `T7`: Record implementation report, validation evidence, known limits, and any durable sync needed.
+- [x] `T6a`: Run the local-only N1 dry run against a small mounted repo, save artifacts, and confirm `ready_to_send` closure.
+- [ ] `T6b`: Run the browser-backed end-to-end N1 dry run after the live capability probe is complete.
+- [x] `T7a`: Record local-only implementation report, validation evidence, known limits, and sync notes.
+- [ ] `T7b`: Append browser evidence and final N1 end-to-end notes after T4/T6b.
 
 ## Validation
 
@@ -309,11 +311,15 @@ Then: context pack and audit log are preserved, the failure is recorded, and no 
 - Added the send-to-AI confirmation gate, explicit context caps, and the browser adapter minimal contract for implementation handoff.
 - Added the first sandbox-side testable core under `config/` and `scripts/`, including policy loading, repo discovery, git probing, secret redaction, context packaging, and audit writing.
 - Added fixtures and unit tests for policy, redaction, context packaging, git graceful degradation, audit logging, and repo discovery.
+- Added a unified local-only session runner `scripts/n1_review_session.py` that creates `context_pack.md`, `audit.jsonl`, and `session_summary.json` with `ready_to_send` status.
+- Added the repo-local skill scaffold `.agent/skills/nexus-local-workspace-review/` with a review request template and browser adapter contract reference.
+- Added runner-level tests for local success, denied-only failure, no-git graceful degradation, secret redaction, artifact fallback, and `no_write_repo`.
 
 ### Not completed
 
 - Browser adapter and end-to-end page submission are still not implemented.
 - Real Tabbit tool names, artifact path behavior, and ChatGPT page harness behavior still need live validation.
+- Browser-backed `review_report.md` capture is still pending the live capability probe and T4 implementation.
 
 ### Notes
 

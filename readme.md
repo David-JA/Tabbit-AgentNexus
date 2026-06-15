@@ -28,13 +28,13 @@
 
 ## 目录约定
 
-- `config/`：M1 / M2+ runtime policy 与 config templates
+- `config/`：N1 / N2+ runtime policy 与 config templates
 - `docs/`：正式文档、架构、workflow 说明
 - `docs/reports/`：accepted 阶段报告、设计报告、验证总结
 - `discuss/`：方案草稿、评审记录、实现 spec
 - `reference/`：外部参考资料或长篇镜像材料
 - `.agent/skills/`：repo-local 可复用 agent workflow
-- `scripts/`：sandbox-side bridge runtime scripts
+- `scripts/`：sandbox-side AgentNexus runtime scripts
 - `scripts/tools/`：维护仓库工作流与打包脚手架
 - `tests/`：sandbox-side unit tests and fixtures
 

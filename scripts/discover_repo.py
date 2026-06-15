@@ -18,7 +18,7 @@ def discover_repo(repo_root: Path) -> dict[str, object]:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Inspect the mounted repo root for M1 review runs.")
+    parser = argparse.ArgumentParser(description="Inspect the mounted repo root for N1 local workspace review runs.")
     parser.add_argument("--repo-root", type=Path, required=True, help="Mounted repo root to inspect.")
     return parser.parse_args()
 

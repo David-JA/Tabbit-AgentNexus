@@ -39,9 +39,9 @@ def write_session_summary(output_path: Path, payload: dict[str, Any]) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Append a JSONL audit event for M1 bridge runs.")
+    parser = argparse.ArgumentParser(description="Append a JSONL audit event for N1 local workspace review runs.")
     parser.add_argument("--log-path", type=Path, required=True, help="Audit log JSONL path.")
-    parser.add_argument("--session-id", required=True, help="Bridge session id.")
+    parser.add_argument("--session-id", required=True, help="N1 session id.")
     parser.add_argument("--event", required=True, help="Audit event name.")
     parser.add_argument("--status", default="ok", help="Audit event status.")
     parser.add_argument(
