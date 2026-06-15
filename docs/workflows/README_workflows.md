@@ -13,6 +13,7 @@
 适用场景：
 
 - 编写阶段报告
+- 进入可提交、请求提交或已提交的阶段收口
 - 组织 Given-When-Then 行为约束
 - 准备 commit message
 - 维护 discuss 状态与文档命名
