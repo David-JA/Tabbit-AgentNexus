@@ -13,6 +13,7 @@
 - 当前优先级是先把 `N1 Local Workspace Review Adapter` 做扎实。
 - 架构默认基于 `E2B sandbox + mounted local folder + browser page automation`。
 - 不把 `Native Messaging`、本机 `HTTP server`、用户机器 `PowerShell/cmd` 当成默认前提。
+- Tabbit skill 采用“仓库源码版 + `.tar.gz` 发行版”的双形态；`browser-scripts/*.js` 运行在网页上下文，`scripts/*.py` 运行在 `E2B sandbox`，但它不替代 repo-native 测试和 git 审计链。
 - 当前实现与 workflow 需要同时考虑网页端 GPT 和 Tabbit agent 的需求与易用性，而不是只优化其中一端。
 - 无人值守能力默认采用 `bounded unattended collaboration`，必须带轮次上限、权限上限、失败上限和人工确认出口。
 

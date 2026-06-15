@@ -35,3 +35,5 @@
 - 新增 `.agent/skills/nexus-local-workspace-review/`，明确 N1 local-only 执行顺序、review request 模板和 browser adapter handoff 边界。
 - 新增 runner 级测试与 `tests/conftest.py`，覆盖 artifact fallback、no-git、denied-only、secret redaction 和 `no_write_repo`，同时修复裸跑 `pytest -q` 的导入稳定性。
 - 将 sandbox-side 用户可见文案从 `M1 bridge` 收口为 `N1 Local Workspace Review` / `AgentNexus review-only`，并同步 discuss 索引与 active N1 spec 状态。
+- 将两份 accepted Tabbit probe report 的稳定结论升级为 architecture boundary：补充 browser workspace / tab control 边界，并在 `nexus_runtime_architecture.md` 新增 Tabbit skill runtime and distribution plane。
+- 同步 `docs/PROJECT_MEMORY.md`，沉淀 Tabbit skill 双运行时 / 双形态分发边界，以及 browser workspace 的真实 tab 寻址限制。

@@ -145,6 +145,24 @@
 - escalation checkpoints
 - append-only audit records
 
+### 3.6 Tabbit skill runtime and distribution plane
+
+AgentNexus 当前接受 Tabbit skill 的双形态分工：
+
+- 仓库中的源码版是 source of truth。
+- Tabbit skill 的运行与分发单元是 `SKILL.md + .tar.gz bundle`。
+- `browser-scripts/*.js` 在网页上下文执行。
+- `scripts/*.py` 在 `E2B sandbox` 执行。
+- Tabbit `.tar.gz` 是发行物，不替代仓库中的 repo-native 源码、测试和文档入口。
+
+对应约束：
+
+- Tabbit skill 不替代 repo-native 的测试、`git diff`、`git commit` 和本地仓库 agent。
+- `allowed_tools` 只可视为声明性元数据，不应作为强安全边界。
+- `url_patterns` 已证实会进入后端 metadata，但 UI 自动推荐 / 自动触发行为仍未完全证成。
+- skill 删除后，DB 级失效可以成立，但 `E2B sandbox` 本地缓存不保证即时清空。
+- confirmed size limit 仍是 `unknown`，因此 v0 bundle 应保持小型化，避免把未证成的大体积分发前提写进设计。
+
 ## 4. Trust model
 
 ### 4.1 Untrusted inputs

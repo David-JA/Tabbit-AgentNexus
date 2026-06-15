@@ -86,3 +86,30 @@ Tags: product, workflow, usability, gpt, tabbit
 
 Why it matters:
 如果未来实现只围绕单一端点优化，要么会让网页端 GPT 的评审/推理收益下降，要么会让 Tabbit agent 的操作链路变脆，都会偏离当前项目的核心产品目标。
+
+## Tabbit Skill Runtime And Distribution Boundary
+
+Tags: tabbit, skill, runtime, distribution, e2b
+
+- 仓库源码版是 AgentNexus 的 source of truth；Tabbit `.tar.gz` bundle 是发行物。
+- Tabbit skill 的最小运行面是 `SKILL.md + browser-scripts/*.js + scripts/*.py`，其中 JS 在网页上下文执行，Python 在 `E2B sandbox` 执行。
+- Tabbit skill 不替代 repo-native 测试、`git diff`、`git commit` 或本地仓库 agent。
+- `allowed_tools` 不应被当成强安全边界；`url_patterns` 的后端 metadata 已证实，但 UI 自动推荐仍未完全证成。
+- skill 删除后只可确认 DB 级失效；本地缓存清理不能默认假设。
+- confirmed size limit 仍 unknown，v0 bundle 应保持小型化。
+
+Why it matters:
+如果把 Tabbit skill 误写成唯一源码形态、强权限边界或完整本地执行替代物，后续实现会在测试、发布和安全模型上同时跑偏。
+
+## Browser Workspace Tab Control Boundary
+
+Tags: tabbit, browser, workspace, tabs
+
+- 不假设可枚举全部标签页。
+- `new_page(foreground=false)` 后必须复查当前活动页。
+- `tabId/page_id` 只信任工具返回的真实 ID，不假设 `1/2/3` 序号。
+- `select_page` 只用于已掌握真实 ID 的页面。
+- URL restore 可用，但不证明旧标签页实例切换，也不保证滚动位置、输入状态或历史栈保留。
+
+Why it matters:
+如果把“已知页面汇报”误当成“完整工作区寻址”，后续 browser workflow 会错误依赖不存在的 tab 枚举和旧页实例切换能力。
